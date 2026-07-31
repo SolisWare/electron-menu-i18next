@@ -16,8 +16,11 @@ import { translate } from "./i18n.js";
 export function installApplicationMenu(): void {
   const isMac = process.platform === "darwin";
 
-  // This is a standard Electron template. Explicit labels are application
-  // translations; role items intentionally have no label yet.
+  // Electron offers `fileMenu`, `editMenu`, and `viewMenu` roles, but those
+  // roles generate complete default submenus; they are not label-only roles.
+  // This example expands those menus so the app can add commands and control
+  // every child item. As a result, their top-level labels are app-owned
+  // translations, while native child commands retain their Electron roles.
   const template: MenuItemConstructorOptions[] = [
     // macOS applications conventionally start with an application menu.
     ...(isMac
@@ -39,13 +42,17 @@ export function installApplicationMenu(): void {
         ]
       : []),
     {
-      // Custom headings are translated directly by the application.
+      // Although "File" is a familiar Electron heading, this is a custom File
+      // menu because the app defines its submenu and adds "Export notes."
+      // Using `{ role: "fileMenu" }` here would ask Electron to generate the
+      // entire default File submenu instead. Since we own this menu structure,
+      // we also own and translate its heading.
       label: translate("menu.file"),
       submenu: [
         {
           label: translate("menu.exportNotes"),
           click: () => {
-            // Replace this with the application's export command.
+            // Your export implementation goes here.
             console.log("Export notes");
           },
         },
@@ -55,6 +62,8 @@ export function installApplicationMenu(): void {
       ],
     },
     {
+      // The same applies to Edit: expanding the submenu exposes each role to
+      // the localizer and allows the app to choose exactly which items appear.
       label: translate("menu.edit"),
       submenu: [
         // Electron supplies behavior and accelerators; the helper supplies
@@ -71,6 +80,8 @@ export function installApplicationMenu(): void {
       ],
     },
     {
+      // This is an expanded View menu rather than Electron's generated
+      // `{ role: "viewMenu" }`, so its heading is translated by the app.
       label: translate("menu.view"),
       submenu: [
         { role: "reload" },
@@ -83,6 +94,13 @@ export function installApplicationMenu(): void {
         { type: "separator" },
         { role: "togglefullscreen" },
       ],
+    },
+    {
+      // This top-level menu is fully standard, so Electron can generate it.
+      // No custom `label` or `submenu` is needed: the helper translates
+      // `menu.roles.windowMenu`, and Electron supplies the complete Window
+      // submenu and its native behavior.
+      role: "windowMenu",
     },
     {
       // This menu has no special Electron role. It demonstrates that custom

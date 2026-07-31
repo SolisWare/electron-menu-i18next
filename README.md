@@ -52,19 +52,9 @@ For a complete main-process setup with Electron startup, i18next resources,
 and menu construction in separate files, see the
 [`examples/basic`](./examples/basic) project.
 
-Merge the bundled English resource into your i18next config (or use it as the shape to translate into other locales):
-
-```ts
-import menuEn from "electron-menu-i18next/locales/en/menu.json";
-
-i18next.init({
-  resources: {
-    en: { translation: menuEn },
-  },
-});
-```
-
-Then provide `menu.roles.*` keys for each locale you support — any role without a matching key falls back to the built-in English default, so partial translations never break your menu.
+Add translated `menu.roles.*` keys directly to each application locale. You do
+not need to provide English role translations: any missing role automatically
+uses its English value from `DEFAULT_ROLE_LABELS`.
 
 The `menu` resource is also yours to extend with labels for custom items. The
 helper only reads `menu.roles.*`; other keys continue to work with i18next
@@ -73,10 +63,11 @@ normally:
 ```json
 {
   "menu": {
-    "tools": "Tools",
-    "exportNotes": "Export notes…",
+    "tools": "Narzędzia",
+    "exportNotes": "Eksportuj notatki…",
     "roles": {
-      "copy": "Copy"
+      "copy": "Kopiuj",
+      "quit": "Zakończ {{appName}}"
     }
   }
 }
