@@ -1,0 +1,33 @@
+{
+  "menu": {
+    "file": "Plik",
+    "edit": "Edycja",
+    "view": "Widok",
+    "tools": "Narzędzia",
+    "exportNotes": "Eksportuj notatki…",
+    "preferences": "Preferencje…",
+    "roles": {
+      "about": "O aplikacji {{appName}}",
+      "services": "Usługi",
+      "hide": "Ukryj {{appName}}",
+      "hideOthers": "Ukryj pozostałe",
+      "unhide": "Pokaż wszystkie",
+      "quit": "Zakończ {{appName}}",
+      "close": "Zamknij",
+      "undo": "Cofnij",
+      "redo": "Ponów",
+      "cut": "Wytnij",
+      "copy": "Kopiuj",
+      "paste": "Wklej",
+      "selectAll": "Zaznacz wszystko",
+      "toggleSpellChecker": "Sprawdzaj pisownię podczas pisania",
+      "reload": "Załaduj ponownie",
+      "forceReload": "Wymuś ponowne załadowanie",
+      "toggleDevTools": "Przełącz narzędzia deweloperskie",
+      "resetZoom": "Rozmiar rzeczywisty",
+      "zoomIn": "Powiększ",
+      "zoomOut": "Pomniejsz",
+      "togglefullscreen": "Przełącz tryb pełnoekranowy"
+    }
+  }
+}

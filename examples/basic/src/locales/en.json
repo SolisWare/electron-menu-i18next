@@ -1,0 +1,10 @@
+{
+  "menu": {
+    "file": "File",
+    "edit": "Edit",
+    "view": "View",
+    "tools": "Tools",
+    "exportNotes": "Export notes…",
+    "preferences": "Preferences…"
+  }
+}

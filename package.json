@@ -1,0 +1,54 @@
+{
+  "name": "electron-menu-i18next",
+  "version": "0.1.0",
+  "description": "Localize Electron's role-based native menu labels with i18next, in the main process.",
+  "keywords": [
+    "electron",
+    "i18next",
+    "i18n",
+    "localization",
+    "menu",
+    "native-menu"
+  ],
+  "author": "SolisWare <https://github.com/SolisWare>",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./locales/*": "./locales/*"
+  },
+  "files": [
+    "dist",
+    "locales",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {
+    "i18next": ">=21.0.0"
+  },
+  "devDependencies": {
+    "i18next": "^24.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.5.0"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/soliswaredev/electron-menu-i18next"
+  }
+}

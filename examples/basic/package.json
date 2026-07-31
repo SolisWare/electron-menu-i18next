@@ -1,0 +1,17 @@
+{
+  "name": "electron-menu-i18next-basic-example",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "npm run build && electron dist/main.js"
+  },
+  "dependencies": {
+    "electron-menu-i18next": "file:../..",
+    "i18next": "^24.0.0"
+  },
+  "devDependencies": {
+    "electron": "^40.0.0",
+    "typescript": "^5.5.0"
+  }
+}
