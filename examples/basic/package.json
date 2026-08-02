@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "start": "npm run build && electron dist/main.js"
+    "dev": "npm start",
+    "start": "npm run build && node scripts/launch.cjs"
   },
   "dependencies": {
     "electron-menu-i18next": "file:../..",

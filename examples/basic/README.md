@@ -103,6 +103,11 @@ npm install
 npm start
 ```
 
+You can also run `npm run dev` from `examples/basic`; it is an alias for the
+example's build-and-start command. The launcher removes an inherited
+`ELECTRON_RUN_AS_NODE` variable because that variable would make Electron run
+the example as plain Node.js in some editor terminals.
+
 A normal application using the published package would instead run:
 
 ```bash

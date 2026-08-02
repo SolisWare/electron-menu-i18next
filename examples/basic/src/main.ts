@@ -9,23 +9,38 @@ import { app, BrowserWindow } from "electron";
 import { initializeI18n } from "./i18n.js";
 import { installApplicationMenu } from "./menu.js";
 
-await app.whenReady();
+let mainWindow: BrowserWindow | null = null;
 
-// Electron exposes the application locale after `ready`. If your application
-// stores a user-selected language, read that setting here instead.
-const electronLocale = app.getLocale();
-const language = electronLocale.startsWith("en") ? "en" : "pl";
+async function startApplication(): Promise<void> {
+  await app.whenReady();
 
-// Initialize main-process translations before constructing any native menus.
-await initializeI18n(language);
+  // Application-specific language selection belongs here. Electron exposes its
+  // locale after `ready`; an app with a language setting would read it here.
+  const electronLocale = app.getLocale();
+  const language = electronLocale.startsWith("en") ? "en" : "pl";
 
-// Native menu labels are fixed when the menu is built, so install the menu only
-// after i18next has loaded the selected language.
-installApplicationMenu();
+  // Initialize main-process translations before constructing any native menus.
+  await initializeI18n(language);
 
-const window = new BrowserWindow({
-  width: 900,
-  height: 600,
+  // Native menu labels are fixed when the menu is built, so install the menu
+  // only after i18next has loaded the selected language.
+  installApplicationMenu();
+
+  // Keep a module-level reference so the BrowserWindow is not garbage-collected.
+  mainWindow = new BrowserWindow({
+    width: 900,
+    height: 600,
+  });
+
+  await mainWindow.loadURL(
+    "data:text/html,<h1>Localized Electron menu example</h1>",
+  );
+}
+
+// Do not use top-level `await app.whenReady()` in an ESM Electron entry file.
+// Invoking an async startup function lets the module finish evaluating so
+// Electron can complete its own ready lifecycle.
+void startApplication().catch((error: unknown) => {
+  console.error("Failed to start the Electron example:", error);
+  app.quit();
 });
-
-await window.loadURL("data:text/html,<h1>Localized Electron menu example</h1>");
