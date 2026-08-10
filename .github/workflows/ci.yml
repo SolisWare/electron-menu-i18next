@@ -8,6 +8,7 @@ name: SolisWare electron-menu-i18next CI
 on:
   push:
   pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -30,3 +31,33 @@ jobs:
       - run: npm ci
       - run: npm run check
       - run: npm pack --dry-run
+
+  package:
+    name: Package artifact
+    needs: compatibility
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 26
+          cache: npm
+      - run: npm ci
+      - name: Create npm package
+        id: artifact
+        shell: bash
+        run: |
+          package_version="$(node -p "require('./package.json').version")"
+          artifact_name="solisware-electron-menu-i18next-v${package_version}-b${GITHUB_RUN_NUMBER}"
+          mkdir -p artifacts
+          packed_filename="$(npm pack --silent --pack-destination artifacts | tail -n 1)"
+          mv "artifacts/${packed_filename}" "artifacts/${artifact_name}.tgz"
+          echo "name=${artifact_name}" >> "$GITHUB_OUTPUT"
+          echo "path=artifacts/${artifact_name}.tgz" >> "$GITHUB_OUTPUT"
+      - name: Upload npm package
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.artifact.outputs.name }}
+          path: ${{ steps.artifact.outputs.path }}
+          if-no-files-found: error
