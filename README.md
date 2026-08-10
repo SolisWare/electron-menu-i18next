@@ -121,7 +121,7 @@ const toolsLabel = t("menu.tools");
 
 ### `localizeMenuTemplate(template, options)`
 
-Recursively walks a `MenuItemConstructorOptions[]` tree (including nested `submenu` arrays) and sets `label` for any item that has a `role` but no `label`. Items with an explicit `label` are left untouched. Does not mutate the input.
+Recursively walks a `MenuItemConstructorOptions[]` tree (including nested `submenu` arrays) and sets `label` for any item that has a `role` but no `label`. Items with an explicit `label` are left untouched, including `label: ""`; localization and fallback labels apply only when `label` is missing or `undefined`. Returns a localized copy; the original template remains unchanged.
 
 ### `getRoleLabel(role, options)`
 

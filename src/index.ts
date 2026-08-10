@@ -27,7 +27,7 @@ export function localizeMenuTemplate<T extends MenuTemplateItem>(
   return template.map((item) => {
     const next: T = { ...item };
 
-    if (next.role && !next.label) {
+    if (next.role && next.label === undefined) {
       next.label = resolveLabel(String(next.role), options);
     }
 
