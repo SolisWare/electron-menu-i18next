@@ -29,7 +29,8 @@ export interface LocalizeMenuOptions {
   keyPrefix?: string;
   /**
    * Interpolated into labels that reference it, e.g. "About {{appName}}",
-   * "Quit {{appName}}". Falls back to the role name itself if omitted.
+   * "Quit {{appName}}". Uses a generic label such as "About" or "Quit"
+   * when omitted.
    */
   appName?: string;
   /**

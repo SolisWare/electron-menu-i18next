@@ -33,7 +33,7 @@
     "dev": "tsup --watch",
     "test": "npm run build && npm run test:compatibility && npm run test:functionality",
     "test:compatibility": "node test/compatibility/esm-import.test.mjs && node test/compatibility/commonjs-require.test.cjs",
-    "test:functionality": "node test/functionality/localize-menu-template.test.mjs",
+    "test:functionality": "node test/functionality/run-tests.mjs",
     "check": "npm run typecheck && npm test",
     "typecheck": "tsc --noEmit",
     "prepack": "npm run check"

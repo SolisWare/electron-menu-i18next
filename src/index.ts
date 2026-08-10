@@ -11,6 +11,12 @@ export { DEFAULT_ROLE_LABELS } from "./defaultLabels";
 export type { LocalizeMenuOptions, MenuTemplateItem } from "./types";
 
 const DEFAULT_KEY_PREFIX = "menu.roles";
+const GENERIC_APP_ROLE_LABELS: Record<string, string> = {
+  about: "About",
+  hide: "Hide",
+  quit: "Quit",
+  appMenu: "Application",
+};
 
 /**
  * Recursively walks a Menu template and fills in `label` for any item that
@@ -51,5 +57,12 @@ function resolveLabel(role: string, options: LocalizeMenuOptions): string {
   const { t, keyPrefix = DEFAULT_KEY_PREFIX, appName, fallbackLabels } = options;
   const key = `${keyPrefix}.${role}`;
   const fallback = fallbackLabels?.[role] ?? DEFAULT_ROLE_LABELS[role] ?? role;
-  return t(key, { defaultValue: fallback, appName });
+  const label = t(key, { defaultValue: fallback, appName: appName ?? "" });
+
+  if (appName !== undefined) {
+    return label;
+  }
+
+  const genericLabel = label.replace(/\{\{\s*appName\s*\}\}/g, "").trim();
+  return genericLabel || GENERIC_APP_ROLE_LABELS[role] || role;
 }

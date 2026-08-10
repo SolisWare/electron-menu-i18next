@@ -133,7 +133,7 @@ Looks up the localized label for a single role — useful for tray menus or cont
 |---|---|---|---|
 | `t` | `TFunction` | required | An i18next translator, such as `i18next.t` or the result of `i18next.getFixedT(...)` |
 | `keyPrefix` | `string` | `"menu.roles"` | Namespace prefix used to build lookup keys |
-| `appName` | `string` | — | Interpolated into labels like `"About {{appName}}"` |
+| `appName` | `string` | — | Interpolated into labels like `"About {{appName}}"`; when omitted, app-name roles use generic labels such as `"About"` and `"Quit"` |
 | `fallbackLabels` | `Partial<Record<string, string>>` | — | Per-role overrides used when a translation key is missing, merged over the built-in defaults |
 
 ### `DEFAULT_ROLE_LABELS`
