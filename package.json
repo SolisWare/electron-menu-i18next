@@ -31,9 +31,10 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
-    "test": "npm run build && npm run test:compatibility && npm run test:functionality",
-    "test:compatibility": "node test/compatibility/esm-import.test.mjs && node test/compatibility/commonjs-require.test.cjs",
-    "test:functionality": "node test/functionality/run-tests.mjs",
+    "test": "npm run build && npm run test:compatibility && npm run test:functionality && npm run test:integration",
+    "test:compatibility": "node test/framework/run-tests.mjs test/compatibility",
+    "test:functionality": "node test/framework/run-tests.mjs test/functionality",
+    "test:integration": "node test/framework/run-tests.mjs test/integration",
     "check": "npm run typecheck && npm test",
     "typecheck": "tsc --noEmit",
     "prepack": "npm run check"

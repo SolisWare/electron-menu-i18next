@@ -7,15 +7,13 @@
 import assert from "node:assert/strict";
 
 import * as packageExports from "electron-menu-i18next";
-import testUtilities from "../test-utils.cjs";
+import { test } from "../framework/test-framework.mjs";
 
-const { test } = testUtilities;
-
-test("imports the package through ECMAScript modules", () => {
+test("imports the package", () => {
   assert.equal(typeof packageExports, "object");
 });
 
-test("exposes the public API through ECMAScript modules", () => {
+test("exposes the public API", () => {
   assert.equal(typeof packageExports.localizeMenuTemplate, "function");
   assert.equal(typeof packageExports.getRoleLabel, "function");
   assert.equal(typeof packageExports.DEFAULT_ROLE_LABELS, "object");

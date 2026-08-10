@@ -7,9 +7,7 @@
 import assert from "node:assert/strict";
 
 import { DEFAULT_ROLE_LABELS } from "electron-menu-i18next";
-import testUtilities from "../test-utils.cjs";
-
-const { test } = testUtilities;
+import { test } from "../../framework/test-framework.mjs";
 
 // Source: https://www.electronjs.org/docs/latest/api/menu-item#new-menuitemoptions
 const electronRoles = [
