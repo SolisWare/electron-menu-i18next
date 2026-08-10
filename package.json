@@ -31,15 +31,18 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
+    "test": "npm run build && npm run test:compatibility",
+    "test:compatibility": "node test/compatibility/esm-import.test.mjs && node test/compatibility/commonjs-require.test.cjs",
+    "check": "npm run typecheck && npm test",
     "typecheck": "tsc --noEmit",
-    "prepublishOnly": "npm run build"
+    "prepack": "npm run check"
   },
   "peerDependencies": {
     "i18next": ">=21.0.0"
   },
   "devDependencies": {
     "i18next": "^24.0.0",
-    "tsup": "^8.0.0",
+    "tsup": "^7.2.0",
     "typescript": "^5.5.0"
   },
   "engines": {

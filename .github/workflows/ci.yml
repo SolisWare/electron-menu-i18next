@@ -1,0 +1,32 @@
+# Copyright (c) 2026 SolisWare.
+#
+# All rights reserved. Licensed under the MIT license.
+# See the LICENSE.txt file in the project root directory for details.
+
+name: SolisWare electron-menu-i18next CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  compatibility:
+    name: Node.js ${{ matrix.node }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [16, 18, 20, 22, 24, 26]
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npm pack --dry-run

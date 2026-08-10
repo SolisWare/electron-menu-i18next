@@ -12,6 +12,15 @@ npm install electron-menu-i18next
 
 `i18next` is a peer dependency — bring your own instance.
 
+## Compatibility
+
+- Node.js 16 and newer
+- ECMAScript modules and CommonJS
+- i18next 21 and newer
+
+Compatibility is tested in CI on every Node.js major release from version 16
+through the latest release.
+
 ## Usage
 
 ```ts
