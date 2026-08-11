@@ -54,38 +54,88 @@ through the latest release.
 
 ## Usage
 
+### TypeScript
+
 ```ts
-import { app, Menu } from "electron";
+import { app, Menu, type MenuItemConstructorOptions } from "electron";
 import i18next from "i18next";
 import { localizeMenuTemplate } from "electron-menu-i18next";
 
 const t = i18next.getFixedT(i18next.language);
 
-const template = localizeMenuTemplate(
-  [
-    {
-      label: app.name,
-      submenu: [
-        { role: "about" },
-        { type: "separator" },
-        { role: "services" },
-        { type: "separator" },
-        { role: "hide" },
-        { role: "hideOthers" },
-        { role: "unhide" },
-        { type: "separator" },
-        { role: "quit" },
-      ],
-    },
-    {
-      label: t("menu.edit"), // manually-labeled items pass through untouched
-      submenu: [{ role: "undo" }, { role: "redo" }, { type: "separator" }, { role: "cut" }, { role: "copy" }, { role: "paste" }],
-    },
-  ],
-  { t, appName: app.name }
-);
+const menuTemplate: MenuItemConstructorOptions[] = [
+  {
+    label: t("menu.edit"),
+    submenu: [
+      { role: "undo" },
+      { role: "redo" },
+      { type: "separator" },
+      { role: "cut" },
+      { role: "copy" },
+      { role: "paste" },
+    ],
+  },
+];
 
-Menu.setApplicationMenu(Menu.buildFromTemplate(template));
+const localizedTemplate = localizeMenuTemplate(menuTemplate, {
+  t,
+  appName: app.name,
+});
+
+Menu.setApplicationMenu(Menu.buildFromTemplate(localizedTemplate));
+```
+
+### JavaScript with ECMAScript modules
+
+Use this form in an `.mjs` file or a project whose `package.json` contains
+`"type": "module"`:
+
+```js
+import { app, Menu } from "electron";
+import i18next from "i18next";
+import { localizeMenuTemplate } from "electron-menu-i18next";
+
+const t = i18next.getFixedT(i18next.language);
+const menuTemplate = [
+  {
+    label: t("menu.edit"),
+    submenu: [{ role: "copy" }, { role: "paste" }],
+  },
+];
+
+const localizedTemplate = localizeMenuTemplate(menuTemplate, {
+  t,
+  appName: app.name,
+});
+
+Menu.setApplicationMenu(Menu.buildFromTemplate(localizedTemplate));
+```
+
+### JavaScript with CommonJS
+
+Use this form in a `.cjs` file or a CommonJS project:
+
+```js
+const { app, Menu } = require("electron");
+const i18next = require("i18next");
+const {
+  localizeMenuTemplate,
+} = require("electron-menu-i18next");
+
+const t = i18next.getFixedT(i18next.language);
+const menuTemplate = [
+  {
+    label: t("menu.edit"),
+    submenu: [{ role: "copy" }, { role: "paste" }],
+  },
+];
+
+const localizedTemplate = localizeMenuTemplate(menuTemplate, {
+  t,
+  appName: app.name,
+});
+
+Menu.setApplicationMenu(Menu.buildFromTemplate(localizedTemplate));
 ```
 
 For a complete main-process setup with Electron startup, i18next resources,
@@ -146,4 +196,4 @@ On macOS, some role labels are localized automatically by the OS. On Windows and
 
 ## License
 
-MIT © [SolisWare](https://github.com/soliswaredev)
+MIT © [SolisWare](https://github.com/SolisWare)
