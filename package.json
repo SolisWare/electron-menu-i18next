@@ -10,8 +10,17 @@
     "menu",
     "native-menu"
   ],
-  "author": "SolisWare <https://github.com/SolisWare>",
+  "author": {
+    "name": "SolisWare",
+    "email": "solisware@mail.com",
+    "url": "https://solisware.com"
+  },
   "license": "MIT",
+  "homepage": "https://github.com/SolisWare/electron-menu-i18next",
+  "bugs": {
+    "url": "https://github.com/SolisWare/electron-menu-i18next/issues"
+  },
+  "sideEffects": false,
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -50,8 +59,12 @@
   "engines": {
     "node": ">=16"
   },
+  "packageManager": "npm@8.11.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/soliswaredev/electron-menu-i18next"
+    "url": "https://github.com/SolisWare/electron-menu-i18next.git"
   }
 }
