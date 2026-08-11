@@ -40,8 +40,9 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
-    "test": "npm run build && npm run test:compatibility && npm run test:functionality && npm run test:integration && npm run test:consumer:typescript",
+    "test": "npm run build && npm run test:compatibility && npm run test:functionality && npm run test:integration && npm run test:consumer:javascript && npm run test:consumer:typescript",
     "test:compatibility": "node test/framework/run-tests.mjs test/compatibility",
+    "test:consumer:javascript": "node test/fixtures/run-javascript-consumers.mjs",
     "test:consumer:typescript": "tsc --project test/fixtures/typescript-consumer/tsconfig.json",
     "test:functionality": "node test/framework/run-tests.mjs test/functionality",
     "test:integration": "node test/framework/run-tests.mjs test/integration",
