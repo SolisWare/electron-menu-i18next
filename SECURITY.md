@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2026 SolisWare.
+Copyright (c) 2026 SolisWare and contributors.
 
 All rights reserved. Licensed under the MIT license.
 See the LICENSE file in the project root directory for details.

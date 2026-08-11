@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2026 SolisWare.
+Copyright (c) 2026 SolisWare and contributors.
 
 All rights reserved. Licensed under the MIT license.
 See the LICENSE file in the project root directory for details.
@@ -203,4 +203,4 @@ On macOS, some role labels are localized automatically by the OS. On Windows and
 
 ## License
 
-MIT © [SolisWare](https://github.com/SolisWare)
+MIT © [SolisWare](https://github.com/SolisWare) and contributors
