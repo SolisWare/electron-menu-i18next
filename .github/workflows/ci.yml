@@ -61,7 +61,7 @@ jobs:
       - run: npm run test:integration
 
   typecheck:
-    name: TypeScript typecheck
+    name: TypeScript validation
     runs-on: ubuntu-latest
 
     steps:
@@ -71,7 +71,9 @@ jobs:
           node-version: 26
           cache: npm
       - run: npm ci
+      - run: npm run build
       - run: npm run typecheck
+      - run: npm run test:consumer:typescript
 
   package:
     name: Package artifact
