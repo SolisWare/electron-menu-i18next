@@ -154,6 +154,15 @@ jobs:
           mv "artifacts/${packed_filename}" "artifacts/${artifact_name}.tgz"
           echo "name=${artifact_name}" >> "$GITHUB_OUTPUT"
           echo "path=artifacts/${artifact_name}.tgz" >> "$GITHUB_OUTPUT"
+      - name: Install example dependencies
+        run: npm ci --ignore-scripts --prefix examples/basic
+      - name: Install generated package in example
+        run: |
+          package_path="$GITHUB_WORKSPACE/${{ steps.artifact.outputs.path }}"
+          npm pkg set "dependencies.electron-menu-i18next=file:${package_path}" --prefix examples/basic
+          npm install --ignore-scripts --package-lock=false --prefix examples/basic
+      - name: Build JavaScript and TypeScript examples
+        run: npm run build --prefix examples/basic
       - name: Upload npm package
         uses: actions/upload-artifact@v4
         with:

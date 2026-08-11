@@ -7,13 +7,24 @@
 const { spawn } = require("node:child_process");
 const electronPath = require("electron");
 
+const variant = process.argv[2] ?? "typescript";
+const entryPoints = {
+  javascript: "src/javascript/main.js",
+  typescript: "dist/typescript/main.js",
+};
+const entryPoint = entryPoints[variant];
+
+if (!entryPoint) {
+  throw new Error(`Unknown example variant: ${variant}`);
+}
+
 // Some editor terminals export ELECTRON_RUN_AS_NODE for their own Electron
 // tooling. Passing it to the child would run this application as plain Node.js
 // instead of starting the Electron runtime.
 const childEnvironment = { ...process.env };
 delete childEnvironment.ELECTRON_RUN_AS_NODE;
 
-const child = spawn(electronPath, ["dist/main.js"], {
+const child = spawn(electronPath, [entryPoint], {
   env: childEnvironment,
   stdio: "inherit",
 });

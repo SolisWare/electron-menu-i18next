@@ -1,19 +1,29 @@
 # Basic Electron example
 
-This is a small but complete Electron main-process integration. It separates
-application startup, i18next configuration, menu construction, and translation
-resources so you can copy the same structure into an existing application.
+This is a small but complete Electron main-process integration with equivalent
+JavaScript and TypeScript implementations. Both variants share the same locale
+resources and demonstrate the same application menu.
 
 ## How the pieces fit together
 
 ```text
-main.ts
-  └─ waits for Electron and chooses the application language
-      └─ i18n.ts initializes i18next and loads translation resources
-          └─ menu.ts creates a normal Electron menu template
-              └─ localizeMenuTemplate fills labels on role-based items
-                  └─ Electron builds and installs the native menu
+src/
+├── javascript/
+│   ├── main.js
+│   ├── i18n.js
+│   └── menu.js
+├── typescript/
+│   ├── main.ts
+│   ├── i18n.ts
+│   └── menu.ts
+└── locales/
+    ├── en.json
+    └── pl.json
 ```
+
+In either implementation, `main` waits for Electron and chooses the language,
+`i18n` initializes i18next, and `menu` builds and localizes a normal Electron
+menu template.
 
 The package does not create your menu and it does not replace Electron roles.
 You continue to define a regular `MenuItemConstructorOptions[]` template:
@@ -89,7 +99,7 @@ the Electron template:
 }
 ```
 
-## Run this repository example
+## Build both variants
 
 Build the local package before installing its `file:../..` dependency:
 
@@ -100,13 +110,25 @@ npm run build
 
 cd examples/basic
 npm install
-npm start
+npm run build
 ```
 
-You can also run `npm run dev` from `examples/basic`; it is an alias for the
-example's build-and-start command. The launcher removes an inherited
-`ELECTRON_RUN_AS_NODE` variable because that variable would make Electron run
-the example as plain Node.js in some editor terminals.
+The build compiles the TypeScript implementation and syntax-checks every
+JavaScript source file.
+
+## Run a variant
+
+```bash
+# TypeScript implementation
+npm run start:typescript
+
+# JavaScript implementation
+npm run start:javascript
+```
+
+`npm start` runs the TypeScript variant by default. The launcher removes an
+inherited `ELECTRON_RUN_AS_NODE` variable because that variable would make
+Electron run the example as plain Node.js in some editor terminals.
 
 A normal application using the published package would instead run:
 
@@ -114,9 +136,9 @@ A normal application using the published package would instead run:
 npm install electron-menu-i18next i18next
 ```
 
-The example selects English when Electron's application locale begins with
-`en`; otherwise it selects Polish. Replace that decision in `main.ts` with
-your saved language preference if the user can choose a language in your app.
+Both variants select English when Electron's application locale begins with
+`en`; otherwise they select Polish. Replace that decision in the relevant
+`main` file with your saved language preference if users can choose a language.
 
 When the language changes at runtime, call `i18next.changeLanguage(...)` and
 run `installApplicationMenu()` again. Native Electron menus must be rebuilt for

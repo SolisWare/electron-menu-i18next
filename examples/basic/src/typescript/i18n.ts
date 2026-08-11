@@ -9,8 +9,8 @@ import i18next from "i18next";
 // These resources belong entirely to the consuming application. English only
 // needs custom app labels; DEFAULT_ROLE_LABELS supplies missing English roles.
 // Polish adds translations for the role labels used by this example.
-import appEn from "./locales/en.json" with { type: "json" };
-import appPl from "./locales/pl.json" with { type: "json" };
+import appEn from "../locales/en.json" with { type: "json" };
+import appPl from "../locales/pl.json" with { type: "json" };
 
 export async function initializeI18n(language: string): Promise<void> {
   await i18next.init({

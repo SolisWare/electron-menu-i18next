@@ -3,9 +3,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "tsc",
-    "dev": "npm start",
-    "start": "npm run build && node scripts/launch.cjs"
+    "build": "npm run build:typescript && npm run check:javascript",
+    "build:typescript": "tsc",
+    "check:javascript": "node scripts/check-javascript.cjs",
+    "start": "npm run start:typescript",
+    "start:javascript": "npm run check:javascript && node scripts/launch.cjs javascript",
+    "start:typescript": "npm run build:typescript && node scripts/launch.cjs typescript"
   },
   "dependencies": {
     "electron-menu-i18next": "file:../..",
