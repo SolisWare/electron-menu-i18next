@@ -63,7 +63,7 @@ jobs:
 
   javascript-consumers:
     name: JavaScript consumers
-    needs: [functionality, integration, typecheck]
+    needs: [compatibility, i18next-compatibility]
     runs-on: ubuntu-latest
 
     steps:
@@ -114,7 +114,7 @@ jobs:
 
   typescript-consumer:
     name: TypeScript consumer
-    needs: [functionality, integration, typecheck]
+    needs: [compatibility, i18next-compatibility]
     runs-on: ubuntu-latest
 
     steps:
@@ -130,8 +130,6 @@ jobs:
   package:
     name: Package artifact
     needs:
-      - compatibility
-      - i18next-compatibility
       - javascript-consumers
       - typescript-consumer
     runs-on: ubuntu-latest
