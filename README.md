@@ -55,7 +55,7 @@ through the latest release.
 ## Usage
 
 ```ts
-import { Menu } from "electron";
+import { app, Menu } from "electron";
 import i18next from "i18next";
 import { localizeMenuTemplate } from "electron-menu-i18next";
 
