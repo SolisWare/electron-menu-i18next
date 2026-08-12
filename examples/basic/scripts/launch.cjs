@@ -4,6 +4,23 @@
  * All rights reserved. Licensed under the MIT license.
  * See the LICENSE file in the project root directory for details.
  */
+const minimumNodeVersion = [22, 12, 0];
+const currentNodeVersion = process.versions.node.split(".").map(Number);
+
+for (let index = 0; index < minimumNodeVersion.length; index += 1) {
+  if (currentNodeVersion[index] > minimumNodeVersion[index]) {
+    break;
+  }
+
+  if (currentNodeVersion[index] < minimumNodeVersion[index]) {
+    console.error(
+      `The Electron example requires Node.js 22.12.0 or newer; current version: ${process.versions.node}.`,
+    );
+    console.error("Switch Node.js versions, delete node_modules, and run npm ci.");
+    process.exit(1);
+  }
+}
+
 const { spawn } = require("node:child_process");
 const electronPath = require("electron");
 

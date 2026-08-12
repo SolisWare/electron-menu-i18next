@@ -16,6 +16,17 @@ scope.
 The example uses Electron 43 and requires Node.js 22.12 or newer. This does not
 change the library's Node.js 16 runtime compatibility.
 
+Confirm the active Node.js version before installing the example:
+
+```bash
+node --version
+```
+
+If the example was installed with an older Node.js version or with
+`--ignore-scripts`, switch to Node.js 22.12 or newer, remove its `node_modules`
+directory, and run `npm ci` again. Electron's install script must run so its
+desktop binary is downloaded.
+
 ## How the pieces fit together
 
 ```text
