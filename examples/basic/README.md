@@ -1,8 +1,17 @@
+<!--
+Copyright (c) 2026 SolisWare and contributors.
+
+All rights reserved. Licensed under the MIT license.
+See the LICENSE file in the project root directory for details.
+-->
+
 # Basic Electron example
 
 This is a small but complete Electron main-process integration with equivalent
 JavaScript and TypeScript implementations. Both variants share the same locale
-resources and demonstrate the same application menu.
+resources and build the same native application menu. The window displays only
+a small inline page because renderer-process setup is outside this package's
+scope.
 
 The example uses Electron 43 and requires Node.js 22.12 or newer. This does not
 change the library's Node.js 16 runtime compatibility.
@@ -24,12 +33,18 @@ src/
     └── pl.json
 ```
 
-In either implementation, `main` waits for Electron and chooses the language,
-`i18n` initializes i18next, and `menu` builds and localizes a normal Electron
-menu template.
+In either implementation:
+
+1. `main` waits for Electron, selects a language, and creates a window.
+2. `i18n` initializes i18next with the shared English and Polish resources.
+3. `menu` creates a normal Electron menu template.
+4. `localizeMenuTemplate` returns a localized copy of that template.
+5. Electron builds and installs the native menu.
 
 The package does not create your menu and it does not replace Electron roles.
-You continue to define a regular `MenuItemConstructorOptions[]` template:
+You continue to define a regular Electron menu template. The TypeScript variant
+types it as `MenuItemConstructorOptions[]`; the JavaScript variant uses the
+equivalent plain array:
 
 - Translate application-owned labels with `t("menu.file")` as usual.
 - Leave the `label` off items such as `{ role: "copy" }`.
@@ -52,7 +67,8 @@ asks Electron to create the File heading and its default child items. That is
 useful when the entire generated menu is suitable for the application.
 
 This example adds an “Export notes” command and explicitly chooses the contents
-of its Edit and View menus. It therefore supplies those submenu arrays itself:
+of its File, Edit, and View menus. It therefore supplies those submenu arrays
+itself:
 
 ```ts
 {
@@ -102,22 +118,23 @@ the Electron template:
 }
 ```
 
-## Build both variants
+## Install and build
 
-Build the local package before installing its `file:../..` dependency:
+The example uses `file:../..` while it is inside this repository, so build the
+library before installing the example:
 
 ```bash
 # From the repository root
-npm install
+npm ci
 npm run build
 
 cd examples/basic
-npm install
+npm ci
 npm run build
 ```
 
 The build compiles the TypeScript implementation and syntax-checks every
-JavaScript source file.
+JavaScript source file. It does not launch Electron.
 
 ## Run a variant
 
@@ -133,16 +150,29 @@ npm run start:javascript
 inherited `ELECTRON_RUN_AS_NODE` variable because that variable would make
 Electron run the example as plain Node.js in some editor terminals.
 
+These commands open a desktop window and install the localized native menu, so
+run them in a graphical desktop session.
+
 A normal application using the published package would instead run:
 
 ```bash
 npm install electron-menu-i18next i18next
 ```
 
-Both variants select English when Electron's application locale begins with
-`en`; otherwise they select Polish. Replace that decision in the relevant
-`main` file with your saved language preference if users can choose a language.
+For demonstration purposes, both variants select English when Electron's
+application locale begins with `en` and Polish for every other locale. A real
+application should replace this simple choice with its supported-locale logic
+or the user's saved language preference.
 
 When the language changes at runtime, call `i18next.changeLanguage(...)` and
 run `installApplicationMenu()` again. Native Electron menus must be rebuilt for
 their visible labels to change.
+
+## Package validation in CI
+
+The repository's CI does not validate this example against the `file:../..`
+development link. After all tests, compatibility matrices, and consumer checks
+pass, CI creates the npm `.tgz`, installs that generated package into a clean
+example workspace in place of the repository link, and builds both variants.
+This verifies the same package contents that are preserved as the downloadable
+workflow artifact.
