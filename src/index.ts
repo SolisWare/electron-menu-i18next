@@ -4,11 +4,11 @@
  * All rights reserved. Licensed under the MIT license.
  * See the LICENSE file in the project root directory for details.
  */
-import { DEFAULT_ROLE_LABELS } from "./defaultLabels";
-import type { LocalizeMenuOptions, MenuTemplateItem } from "./types";
+import { DEFAULT_ROLE_LABELS } from "./defaultLabels.js";
+import type { LocalizeMenuOptions, MenuTemplateItem } from "./types.js";
 
-export { DEFAULT_ROLE_LABELS } from "./defaultLabels";
-export type { LocalizeMenuOptions, MenuTemplateItem } from "./types";
+export { DEFAULT_ROLE_LABELS } from "./defaultLabels.js";
+export type { LocalizeMenuOptions, MenuTemplateItem } from "./types.js";
 
 const DEFAULT_KEY_PREFIX = "menu.roles";
 const GENERIC_APP_ROLE_LABELS: Record<string, string> = {

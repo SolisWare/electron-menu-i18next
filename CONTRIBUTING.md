@@ -73,7 +73,10 @@ and update the role-coverage test.
 
 ## Electron examples
 
-The basic example includes equivalent JavaScript and TypeScript variants:
+The basic example includes equivalent JavaScript and TypeScript variants.
+
+The example uses Electron 43, so installing and running it requires Node.js
+22.12 or newer even though the library itself supports Node.js 16 and newer.
 
 ```bash
 cd examples/basic

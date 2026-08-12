@@ -22,14 +22,14 @@
   },
   "sideEffects": false,
   "type": "module",
-  "main": "./dist/index.cjs",
+  "main": "./dist/cjs/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "require": "./dist/cjs/index.js"
     }
   },
   "files": [
@@ -38,8 +38,8 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch",
+    "build": "node scripts/build.mjs",
+    "dev": "node scripts/build.mjs --watch",
     "test": "npm run build && npm run test:compatibility && npm run test:functionality && npm run test:integration && npm run test:consumer:javascript && npm run test:consumer:typescript",
     "test:compatibility": "node test/framework/run-tests.mjs test/compatibility",
     "test:consumer:javascript": "node test/fixtures/run-javascript-consumers.mjs",
@@ -55,7 +55,6 @@
   },
   "devDependencies": {
     "i18next": "^24.0.0",
-    "tsup": "^7.2.0",
     "typescript": "^5.5.0"
   },
   "engines": {

@@ -4,6 +4,9 @@ This is a small but complete Electron main-process integration with equivalent
 JavaScript and TypeScript implementations. Both variants share the same locale
 resources and demonstrate the same application menu.
 
+The example uses Electron 43 and requires Node.js 22.12 or newer. This does not
+change the library's Node.js 16 runtime compatibility.
+
 ## How the pieces fit together
 
 ```text
