@@ -59,95 +59,181 @@ automatically; it can also be installed explicitly with `npm install i18next`.
 Compatibility is tested in CI on every Node.js major release from version 16
 through the latest release.
 
-## Usage
+## Quick start
 
-### TypeScript
+Install the package next to Electron and i18next:
+
+```bash
+npm install electron-menu-i18next i18next
+```
+
+This example uses TypeScript and ECMAScript modules. Create these four files in
+your Electron main-process source directory:
+
+```text
+src/
+├── main.ts
+├── i18n.ts
+├── menu.ts
+└── locales/
+    ├── en.json
+    └── pl.json
+```
+
+### 1. Add translations
+
+Create `src/locales/en.json`:
+
+```json
+{
+  "menu": {
+    "edit": "Edit"
+  }
+}
+```
+
+Create `src/locales/pl.json`:
+
+```json
+{
+  "menu": {
+    "edit": "Edycja",
+    "roles": {
+      "undo": "Cofnij",
+      "redo": "Ponów",
+      "copy": "Kopiuj",
+      "paste": "Wklej",
+      "quit": "Zakończ {{appName}}"
+    }
+  }
+}
+```
+
+`menu.edit` belongs to your application because you create that menu heading.
+Entries under `menu.roles` translate Electron role items. English role entries
+are optional because this package supplies built-in English fallbacks.
+
+### 2. Configure i18next
+
+Create `src/i18n.ts`:
+
+```ts
+import i18next from "i18next";
+import en from "./locales/en.json" with { type: "json" };
+import pl from "./locales/pl.json" with { type: "json" };
+
+export async function initializeI18n(language: string): Promise<void> {
+  await i18next.init({
+    lng: language,
+    fallbackLng: "en",
+    resources: {
+      en: { translation: en },
+      pl: { translation: pl },
+    },
+  });
+}
+
+export const translate = i18next.t.bind(i18next);
+```
+
+Initialize i18next in Electron's main process, not in the renderer process that
+displays your application UI.
+
+### 3. Build and localize the menu
+
+Create `src/menu.ts`:
 
 ```ts
 import { app, Menu, type MenuItemConstructorOptions } from "electron";
-import i18next from "i18next";
 import { localizeMenuTemplate } from "electron-menu-i18next";
+import { translate } from "./i18n.js";
 
-const t = i18next.getFixedT(i18next.language);
+export function installApplicationMenu(): void {
+  const template: MenuItemConstructorOptions[] = [
+    {
+      // Your application owns this heading, so translate it directly.
+      label: translate("menu.edit"),
+      submenu: [
+        // Leave labels off role items. Electron supplies their native actions;
+        // electron-menu-i18next supplies their localized labels.
+        { role: "undo" },
+        { role: "redo" },
+        { type: "separator" },
+        { role: "copy" },
+        { role: "paste" },
+        { type: "separator" },
+        { role: "quit" },
+      ],
+    },
+  ];
 
-const menuTemplate: MenuItemConstructorOptions[] = [
-  {
-    label: t("menu.edit"),
-    submenu: [
-      { role: "undo" },
-      { role: "redo" },
-      { type: "separator" },
-      { role: "cut" },
-      { role: "copy" },
-      { role: "paste" },
-    ],
-  },
-];
+  const localizedTemplate = localizeMenuTemplate(template, {
+    t: translate,
+    appName: app.name,
+  });
 
-const localizedTemplate = localizeMenuTemplate(menuTemplate, {
-  t,
-  appName: app.name,
-});
-
-Menu.setApplicationMenu(Menu.buildFromTemplate(localizedTemplate));
+  Menu.setApplicationMenu(Menu.buildFromTemplate(localizedTemplate));
+}
 ```
 
-### JavaScript with ECMAScript modules
+The important boundary is:
 
-Use this form in an `.mjs` file or a project whose `package.json` contains
-`"type": "module"`:
-
-```js
-import { app, Menu } from "electron";
-import i18next from "i18next";
-import { localizeMenuTemplate } from "electron-menu-i18next";
-
-const t = i18next.getFixedT(i18next.language);
-const menuTemplate = [
-  {
-    label: t("menu.edit"),
-    submenu: [{ role: "copy" }, { role: "paste" }],
-  },
-];
-
-const localizedTemplate = localizeMenuTemplate(menuTemplate, {
-  t,
-  appName: app.name,
-});
-
-Menu.setApplicationMenu(Menu.buildFromTemplate(localizedTemplate));
+```text
+normal Electron template
+→ localizeMenuTemplate(...)
+→ Menu.buildFromTemplate(...)
+→ native application menu
 ```
 
-### JavaScript with CommonJS
+For example, `{ role: "copy" }` keeps Electron's native Copy behavior and
+accelerator. With Polish selected, the package adds `label: "Kopiuj"` before
+Electron builds the menu.
 
-Use this form in a `.cjs` file or a CommonJS project:
+### 4. Initialize everything at startup
 
-```js
-const { app, Menu } = require("electron");
-const i18next = require("i18next");
-const {
-  localizeMenuTemplate,
-} = require("electron-menu-i18next");
+Create or update `src/main.ts`:
 
-const t = i18next.getFixedT(i18next.language);
-const menuTemplate = [
-  {
-    label: t("menu.edit"),
-    submenu: [{ role: "copy" }, { role: "paste" }],
-  },
-];
+```ts
+import { app } from "electron";
+import { initializeI18n } from "./i18n.js";
+import { installApplicationMenu } from "./menu.js";
 
-const localizedTemplate = localizeMenuTemplate(menuTemplate, {
-  t,
-  appName: app.name,
+async function startApplication(): Promise<void> {
+  await app.whenReady();
+
+  // Replace "pl" with the user's saved language or your locale-selection logic.
+  await initializeI18n("pl");
+  installApplicationMenu();
+
+  // Create your BrowserWindow here.
+}
+
+void startApplication().catch((error: unknown) => {
+  console.error("Failed to start the application:", error);
+  app.quit();
 });
-
-Menu.setApplicationMenu(Menu.buildFromTemplate(localizedTemplate));
 ```
 
-For a complete main-process setup with Electron startup, i18next resources,
-and menu construction in separate files, see the
-[`examples/basic`](./examples/basic) project.
+The menu is now built with Polish role labels. When the language changes, call
+`i18next.changeLanguage(...)` and run `installApplicationMenu()` again because
+native menus must be rebuilt to display new labels.
+
+### Using JavaScript instead
+
+The API is the same in plain JavaScript:
+
+- Remove TypeScript annotations such as `: string` and
+  `MenuItemConstructorOptions[]`.
+- Use `.js` files with `"type": "module"`, or use `.mjs`.
+- For CommonJS, load the package with
+  `require("electron-menu-i18next")`.
+
+The repository includes complete, runnable
+[JavaScript and TypeScript examples](./examples/basic) with shared JSON locale
+files. Use those when you need full Electron startup, window creation, platform
+menus, or CommonJS/ESM reference code.
+
+## Translation keys
 
 Add translated `menu.roles.*` keys directly to each application locale. You do
 not need to provide English role translations: any missing role automatically
