@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2026 SolisWare and contributors.
- * 
+ *
  * All rights reserved. Licensed under the MIT license.
  * See the LICENSE file in the project root directory for details.
  */
@@ -26,7 +26,7 @@ async function startApplication(): Promise<void> {
   // only after i18next has loaded the selected language.
   installApplicationMenu();
 
-  // Keep a module-level reference so the BrowserWindow is not garbage-collected.
+  // Keep application ownership of the window in a module-level reference.
   mainWindow = new BrowserWindow({
     width: 900,
     height: 600,
@@ -37,9 +37,9 @@ async function startApplication(): Promise<void> {
   );
 }
 
-// Do not use top-level `await app.whenReady()` in an ESM Electron entry file.
-// Invoking an async startup function lets the module finish evaluating so
-// Electron can complete its own ready lifecycle.
+// An async startup function lets this ESM entry module finish evaluating while
+// Electron completes its ready lifecycle, avoiding startup-order issues caused
+// by awaiting `app.whenReady()` at the module's top level.
 void startApplication().catch((error: unknown) => {
   console.error("Failed to start the Electron example:", error);
   app.quit();
