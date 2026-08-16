@@ -16,7 +16,7 @@ permissions:
 jobs:
   compatibility:
     name: Compatibility / Node.js ${{ matrix.node }}
-    needs: [dependency-audit, functionality, integration, typecheck]
+    needs: [functionality, integration, typecheck]
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -35,6 +35,7 @@ jobs:
 
   functionality:
     name: Functionality tests
+    needs: dependency-audit
     runs-on: ubuntu-latest
 
     steps:
@@ -58,12 +59,13 @@ jobs:
           node-version: 26
           cache: npm
       - run: npm ci
-      - run: npm audit
+      - run: npm audit --audit-level=high
       - run: npm ci --ignore-scripts --prefix examples/basic
-      - run: npm audit --prefix examples/basic
+      - run: npm audit --audit-level=high --prefix examples/basic
 
   integration:
     name: Integration tests
+    needs: dependency-audit
     runs-on: ubuntu-latest
 
     steps:
@@ -93,7 +95,7 @@ jobs:
 
   i18next-compatibility:
     name: i18next / ${{ matrix.i18next }}
-    needs: [dependency-audit, functionality, integration, typecheck]
+    needs: [functionality, integration, typecheck]
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -116,6 +118,7 @@ jobs:
 
   typecheck:
     name: Source typecheck
+    needs: dependency-audit
     runs-on: ubuntu-latest
 
     steps:
