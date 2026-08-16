@@ -14,8 +14,8 @@ permissions:
   contents: read
 
 jobs:
-  compatibility:
-    name: Compatibility / Node.js ${{ matrix.node }}
+  node-compatibility:
+    name: Node.js / ${{ matrix.node }}
     needs: [functionality, integration, typecheck]
     runs-on: ubuntu-latest
     strategy:
@@ -80,7 +80,7 @@ jobs:
 
   javascript-consumers:
     name: JavaScript consumers
-    needs: [compatibility, i18next-compatibility]
+    needs: [node-compatibility, i18next-compatibility]
     runs-on: ubuntu-latest
 
     steps:
@@ -132,7 +132,7 @@ jobs:
 
   typescript-consumer:
     name: TypeScript consumer
-    needs: [compatibility, i18next-compatibility]
+    needs: [node-compatibility, i18next-compatibility]
     runs-on: ubuntu-latest
 
     steps:
