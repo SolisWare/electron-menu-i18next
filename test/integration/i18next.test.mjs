@@ -11,7 +11,7 @@ import i18next from "i18next";
 import {
   getRoleLabel,
   localizeMenuTemplate,
-} from "electron-menu-i18next";
+} from "@solisware/electron-menu-i18next";
 import { test } from "../framework/test-framework.mjs";
 
 async function createPolishTranslator() {

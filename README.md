@@ -14,7 +14,7 @@ Electron's `role`-based menu items (`role: 'undo'`, `'about'`, `'quit'`, etc.) r
 ## Install
 
 ```bash
-npm install electron-menu-i18next
+npm install @solisware/electron-menu-i18next
 ```
 
 `i18next` is a peer dependency — bring your own instance.
@@ -41,7 +41,7 @@ from another project's `package.json`:
 ```json
 {
   "dependencies": {
-    "electron-menu-i18next": "file:../packages/solisware-electron-menu-i18next-v0.1.0-b123.tgz"
+    "@solisware/electron-menu-i18next": "file:../packages/solisware-electron-menu-i18next-v0.1.0-b123.tgz"
   }
 }
 ```
@@ -64,7 +64,7 @@ through the latest release.
 Install the package next to Electron and i18next:
 
 ```bash
-npm install electron-menu-i18next i18next
+npm install @solisware/electron-menu-i18next i18next
 ```
 
 This example uses TypeScript and ECMAScript modules. Create these four files in
@@ -145,7 +145,7 @@ Create `src/menu.ts`:
 
 ```ts
 import { app, Menu, type MenuItemConstructorOptions } from "electron";
-import { localizeMenuTemplate } from "electron-menu-i18next";
+import { localizeMenuTemplate } from "@solisware/electron-menu-i18next";
 import { translate } from "./i18n.js";
 
 export function installApplicationMenu(): void {
@@ -226,7 +226,7 @@ The API is the same in plain JavaScript:
   `MenuItemConstructorOptions[]`.
 - Use `.js` files with `"type": "module"`, or use `.mjs`.
 - For CommonJS, load the package with
-  `require("electron-menu-i18next")`.
+  `require("@solisware/electron-menu-i18next")`.
 
 The repository includes complete, runnable
 [JavaScript and TypeScript examples](./examples/basic) with shared JSON locale

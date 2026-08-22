@@ -10,7 +10,7 @@ import {
   DEFAULT_ROLE_LABELS,
   getRoleLabel,
   localizeMenuTemplate,
-} from "electron-menu-i18next";
+} from "@solisware/electron-menu-i18next";
 
 const translations = {
   "menu.roles.copy": "Kopiuj",

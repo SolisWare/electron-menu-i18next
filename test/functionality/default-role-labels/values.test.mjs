@@ -6,7 +6,7 @@
  */
 import assert from "node:assert/strict";
 
-import { DEFAULT_ROLE_LABELS } from "electron-menu-i18next";
+import { DEFAULT_ROLE_LABELS } from "@solisware/electron-menu-i18next";
 import { test } from "../../framework/test-framework.mjs";
 
 test("provides a non-empty string for every role", () => {

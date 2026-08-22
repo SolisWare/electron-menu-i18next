@@ -6,7 +6,7 @@
  */
 import assert from "node:assert/strict";
 
-import { getRoleLabel } from "electron-menu-i18next";
+import { getRoleLabel } from "@solisware/electron-menu-i18next";
 import { test } from "../../framework/test-framework.mjs";
 import { createTranslator } from "../../utils/translator.mjs";
 

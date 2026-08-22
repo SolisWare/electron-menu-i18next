@@ -14,7 +14,7 @@
     "start:typescript": "npm run build:typescript && node scripts/launch.cjs typescript"
   },
   "dependencies": {
-    "electron-menu-i18next": "file:../..",
+    "@solisware/electron-menu-i18next": "file:../..",
     "i18next": "^24.0.0"
   },
   "devDependencies": {

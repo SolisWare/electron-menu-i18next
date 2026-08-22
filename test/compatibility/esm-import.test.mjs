@@ -6,7 +6,7 @@
  */
 import assert from "node:assert/strict";
 
-import * as packageExports from "electron-menu-i18next";
+import * as packageExports from "@solisware/electron-menu-i18next";
 import { test } from "../framework/test-framework.mjs";
 
 test("imports the package", () => {

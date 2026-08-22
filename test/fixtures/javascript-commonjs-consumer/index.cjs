@@ -10,7 +10,7 @@ const {
   DEFAULT_ROLE_LABELS,
   getRoleLabel,
   localizeMenuTemplate,
-} = require("electron-menu-i18next");
+} = require("@solisware/electron-menu-i18next");
 
 const translations = {
   "menu.roles.copy": "Kopiuj",

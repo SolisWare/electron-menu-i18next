@@ -6,7 +6,7 @@
  */
 import assert from "node:assert/strict";
 
-import { localizeMenuTemplate } from "electron-menu-i18next";
+import { localizeMenuTemplate } from "@solisware/electron-menu-i18next";
 import { test } from "../../framework/test-framework.mjs";
 import { createTranslator } from "../../utils/translator.mjs";
 

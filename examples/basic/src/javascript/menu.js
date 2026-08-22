@@ -5,7 +5,7 @@
  * See the LICENSE file in the project root directory for details.
  */
 import { app, Menu } from "electron";
-import { localizeMenuTemplate } from "electron-menu-i18next";
+import { localizeMenuTemplate } from "@solisware/electron-menu-i18next";
 
 import { translate } from "./i18n.js";
 

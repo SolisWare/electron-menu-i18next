@@ -12,7 +12,7 @@ import {
   localizeMenuTemplate,
   type LocalizeMenuOptions,
   type MenuTemplateItem,
-} from "electron-menu-i18next";
+} from "@solisware/electron-menu-i18next";
 
 interface ConsumerMenuItem extends MenuTemplateItem {
   id?: string;

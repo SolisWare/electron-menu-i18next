@@ -10,7 +10,7 @@ import { createRequire } from "node:module";
 import { test } from "../framework/test-framework.mjs";
 
 const require = createRequire(import.meta.url);
-const packageExports = require("electron-menu-i18next");
+const packageExports = require("@solisware/electron-menu-i18next");
 
 test("requires the package", () => {
   assert.equal(typeof packageExports, "object");

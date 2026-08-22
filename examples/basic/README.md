@@ -167,7 +167,7 @@ run them in a graphical desktop session.
 A normal application using the published package would instead run:
 
 ```bash
-npm install electron-menu-i18next i18next
+npm install @solisware/electron-menu-i18next i18next
 ```
 
 For demonstration purposes, both variants select English when Electron's
