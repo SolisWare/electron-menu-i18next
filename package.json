@@ -1,5 +1,5 @@
 {
-  "name": "electron-menu-i18next",
+  "name": "@solisware/electron-menu-i18next",
   "version": "0.1.0",
   "description": "Localize Electron's role-based native menu labels with i18next, in the main process.",
   "keywords": [
