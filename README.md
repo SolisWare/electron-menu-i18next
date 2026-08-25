@@ -5,7 +5,7 @@ All rights reserved. Licensed under the MIT license.
 See the LICENSE file in the project root directory for details.
 -->
 
-# electron-menu-i18next
+# @solisware/electron-menu-i18next
 
 Localize Electron's role-based native menu labels with [i18next](https://www.i18next.com/), in the main process.
 
