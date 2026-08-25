@@ -175,7 +175,7 @@ jobs:
       - name: Install generated package in example
         run: |
           package_path="$GITHUB_WORKSPACE/${{ steps.artifact.outputs.path }}"
-          npm pkg set "dependencies.electron-menu-i18next=file:${package_path}" --prefix examples/basic
+          npm pkg set "dependencies.@solisware/electron-menu-i18next=file:${package_path}" --prefix examples/basic
           npm install --ignore-scripts --package-lock=false --prefix examples/basic
       - name: Build JavaScript and TypeScript examples
         run: npm run build --prefix examples/basic
