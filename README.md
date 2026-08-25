@@ -287,6 +287,11 @@ The built-in English fallback map, exported in case you want to seed your own lo
 
 On macOS, some role labels are localized automatically by the OS. On Windows and Linux, none are — and even on macOS, `about`/`hide`/`quit` need the app name injected, which Electron doesn't do for you outside the default App menu. This package gives you one consistent behavior across all three platforms, driven by the same i18next instance as the rest of your app.
 
+## Contributing
+
+Development setup, commands, test organization, and pull-request guidance are
+documented in [CONTRIBUTING.md](./CONTRIBUTING.md).
+
 ## License
 
 MIT © [SolisWare](https://github.com/SolisWare) and contributors

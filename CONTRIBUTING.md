@@ -5,9 +5,9 @@ All rights reserved. Licensed under the MIT license.
 See the LICENSE file in the project root directory for details.
 -->
 
-# Contributing to electron-menu-i18next
+# Contributing to @solisware/electron-menu-i18next
 
-Thank you for helping improve `electron-menu-i18next`.
+Thank you for helping improve `@solisware/electron-menu-i18next`.
 
 ## Before you begin
 
@@ -92,11 +92,19 @@ build compiles TypeScript and syntax-checks JavaScript.
 ## Code and documentation
 
 - Preserve compatibility with Node.js 16 and newer.
+- Preserve i18next 21 and newer as the peer dependency range.
 - Preserve both ESM and CommonJS exports.
+- Keep the package independent of Electron at runtime; use structural menu-item
+  types rather than adding an Electron dependency.
 - Keep public TypeScript declarations accurate.
+- Preserve input immutability and existing explicit labels, including empty
+  string labels.
+- Always use braces around control-flow bodies, including one-line branches.
 - Add `Copyright (c) 2026 SolisWare and contributors.` to new source, test,
-  configuration, and workflow files that support comments.
-- Update the README when public behavior or installation steps change.
+  configuration, documentation, and workflow files that support comments.
+- Use full multiline TSDoc for documented TypeScript declarations.
+- Update the README when public behavior, translation keys, fallbacks,
+  installation, compatibility, or platform behavior changes.
 
 ## Pull requests
 
@@ -104,6 +112,7 @@ Before opening a pull request:
 
 ```bash
 npm run check
+npm audit --audit-level=high
 npm pack --dry-run
 ```
 
@@ -113,7 +122,8 @@ In the pull-request description:
 - Describe user-visible behavior changes.
 - List the validation performed.
 - Link related issues when applicable.
-- Call out breaking changes explicitly.
+- Call out breaking API, translation-key, fallback-label, or type changes
+  explicitly.
 
 Keep pull requests focused. Avoid unrelated formatting, dependency, or
 refactoring changes.
