@@ -12,7 +12,9 @@ import i18next from "i18next";
 import appEn from "../locales/en.json" with { type: "json" };
 import appPl from "../locales/pl.json" with { type: "json" };
 
-export async function initializeI18n(language: string): Promise<void> {
+export type Language = "en" | "pl";
+
+export async function initializeI18n(language: Language): Promise<void> {
   await i18next.init({
     lng: language,
 
@@ -31,6 +33,14 @@ export async function initializeI18n(language: string): Promise<void> {
       },
     },
   });
+}
+
+export async function changeLanguage(language: Language): Promise<void> {
+  await i18next.changeLanguage(language);
+}
+
+export function getLanguage(): string {
+  return i18next.resolvedLanguage ?? i18next.language;
 }
 
 // Export one main-process translator for menu construction. Binding preserves

@@ -6,7 +6,7 @@
  */
 const { app, Menu } = require("electron");
 const { localizeMenuTemplate } = require("@solisware/electron-menu-i18next");
-const { translate } = require("./i18n.cjs");
+const { changeLanguage, getLanguage, translate } = require("./i18n.cjs");
 
 function installApplicationMenu() {
   const isMac = process.platform === "darwin";
@@ -98,6 +98,25 @@ function installApplicationMenu() {
       role: "windowMenu",
     },
     {
+      // Changing i18next's language does not mutate an existing native menu.
+      // Each radio item changes the main-process language and rebuilds it.
+      label: translate("menu.language"),
+      submenu: [
+        {
+          label: translate("menu.english"),
+          type: "radio",
+          checked: getLanguage().startsWith("en"),
+          click: () => switchLanguage("en"),
+        },
+        {
+          label: translate("menu.polish"),
+          type: "radio",
+          checked: getLanguage().startsWith("pl"),
+          click: () => switchLanguage("pl"),
+        },
+      ],
+    },
+    {
       // This menu has no special Electron role. It demonstrates that custom
       // menu items continue to work alongside localized role items.
       label: translate("menu.tools"),
@@ -124,6 +143,12 @@ function installApplicationMenu() {
   });
 
   Menu.setApplicationMenu(Menu.buildFromTemplate(localizedTemplate));
+}
+
+function switchLanguage(language) {
+  void changeLanguage(language)
+    .then(() => installApplicationMenu())
+    .catch((error) => console.error(`Failed to change language to ${language}:`, error));
 }
 
 module.exports = { installApplicationMenu };

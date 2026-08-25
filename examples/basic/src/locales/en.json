@@ -3,6 +3,9 @@
     "file": "File",
     "edit": "Edit",
     "view": "View",
+    "language": "Language",
+    "english": "English",
+    "polish": "Polish",
     "tools": "Tools",
     "exportNotes": "Export notes…",
     "preferences": "Preferences…"

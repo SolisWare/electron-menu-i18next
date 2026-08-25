@@ -29,9 +29,17 @@ async function initializeI18n(language) {
   });
 }
 
+async function changeLanguage(language) {
+  await i18next.changeLanguage(language);
+}
+
+function getLanguage() {
+  return i18next.resolvedLanguage ?? i18next.language;
+}
+
 // Export one main-process translator for menu construction. Binding preserves
 // the i18next instance when it is passed into electron-menu-i18next.
 const translate = i18next.t.bind(i18next);
 
 // Export the initialized translator through the JavaScript example's CommonJS boundary.
-module.exports = { initializeI18n, translate };
+module.exports = { changeLanguage, getLanguage, initializeI18n, translate };

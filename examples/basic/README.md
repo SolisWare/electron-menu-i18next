@@ -53,6 +53,8 @@ In either implementation:
 2. `i18n` initializes i18next with the shared English and Polish resources.
 3. `menu` creates a normal Electron menu template.
 4. `localizeMenuTemplate` returns a localized copy of that template.
+5. Choosing English or Polish from the native Language menu changes i18next's
+   language and rebuilds the menu immediately; no restart is required.
 5. Electron builds and installs the native menu.
 
 The package does not create your menu and it does not replace Electron roles.
