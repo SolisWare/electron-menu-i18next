@@ -4,16 +4,11 @@
  * All rights reserved. Licensed under the MIT license.
  * See the LICENSE file in the project root directory for details.
  */
-import {
-  app,
-  Menu,
-  type MenuItemConstructorOptions,
-} from "electron";
-import { localizeMenuTemplate } from "@solisware/electron-menu-i18next";
+const { app, Menu } = require("electron");
+const { localizeMenuTemplate } = require("@solisware/electron-menu-i18next");
+const { translate } = require("./i18n.cjs");
 
-import { translate } from "./i18n.js";
-
-export function installApplicationMenu(): void {
+function installApplicationMenu() {
   const isMac = process.platform === "darwin";
 
   // Electron offers `fileMenu`, `editMenu`, and `viewMenu` roles, but those
@@ -21,7 +16,7 @@ export function installApplicationMenu(): void {
   // This example expands those menus so the app can add commands and control
   // every child item. As a result, their top-level labels are app-owned
   // translations, while native child commands retain their Electron roles.
-  const template: MenuItemConstructorOptions[] = [
+  const template = [
     // macOS applications conventionally start with an application menu.
     ...(isMac
       ? [
@@ -38,7 +33,7 @@ export function installApplicationMenu(): void {
               { type: "separator" },
               { role: "quit" },
             ],
-          } satisfies MenuItemConstructorOptions,
+          },
         ]
       : []),
     {
@@ -130,3 +125,5 @@ export function installApplicationMenu(): void {
 
   Menu.setApplicationMenu(Menu.buildFromTemplate(localizedTemplate));
 }
+
+module.exports = { installApplicationMenu };

@@ -4,14 +4,13 @@
  * All rights reserved. Licensed under the MIT license.
  * See the LICENSE file in the project root directory for details.
  */
-import { app, BrowserWindow } from "electron";
+const { app, BrowserWindow } = require("electron");
+const { initializeI18n } = require("./i18n.cjs");
+const { installApplicationMenu } = require("./menu.cjs");
 
-import { initializeI18n } from "./i18n.js";
-import { installApplicationMenu } from "./menu.js";
+let mainWindow = null;
 
-let mainWindow: BrowserWindow | null = null;
-
-async function startApplication(): Promise<void> {
+async function startApplication() {
   await app.whenReady();
 
   // Application-specific language selection belongs here. Electron exposes its
@@ -19,11 +18,12 @@ async function startApplication(): Promise<void> {
   const electronLocale = app.getLocale();
   const language = electronLocale.startsWith("en") ? "en" : "pl";
 
-  // Initialize main-process translations before constructing any native menus.
+  // Initialize the application-owned i18next instance before passing its
+  // translator into electron-menu-i18next during menu construction.
   await initializeI18n(language);
 
-  // Native menu labels are fixed when the menu is built, so install the menu
-  // only after i18next has loaded the selected language.
+  // Package integration happens inside installApplicationMenu(): the helper
+  // localizes the template before Electron builds the native menu instances.
   installApplicationMenu();
 
   // Keep application ownership of the window in a module-level reference.
@@ -33,14 +33,12 @@ async function startApplication(): Promise<void> {
   });
 
   await mainWindow.loadURL(
-    "data:text/html,<h1>Localized Electron menu example</h1>",
+    "data:text/html,<h1>Localized Electron menu JavaScript example</h1>",
   );
 }
 
-// An async startup function lets this ESM entry module finish evaluating while
-// Electron completes its ready lifecycle, avoiding startup-order issues caused
-// by awaiting `app.whenReady()` at the module's top level.
-void startApplication().catch((error: unknown) => {
+// Keep asynchronous startup errors visible instead of leaving a rejected promise.
+void startApplication().catch((error) => {
   console.error("Failed to start the Electron example:", error);
   app.quit();
 });

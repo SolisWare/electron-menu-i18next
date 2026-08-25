@@ -13,6 +13,9 @@ resources and build the same native application menu. The window displays only
 a small inline page because renderer-process setup is outside this package's
 scope.
 
+The JavaScript variant demonstrates the package's CommonJS export. The
+TypeScript variant compiles to ESM and demonstrates its ESM export.
+
 The example uses Electron 43 and requires Node.js 22.12 or newer. This does not
 change the library's Node.js 16 runtime compatibility.
 
@@ -32,13 +35,13 @@ desktop binary is downloaded.
 ```text
 src/
 ├── javascript/
-│   ├── main.js
-│   ├── i18n.js
-│   └── menu.js
+│   ├── main.cjs
+│   ├── i18n.cjs
+│   └── menu.cjs
 ├── typescript/
-│   ├── main.ts
-│   ├── i18n.ts
-│   └── menu.ts
+│   ├── main.mts
+│   ├── i18n.mts
+│   └── menu.mts
 └── locales/
     ├── en.json
     └── pl.json

@@ -7,7 +7,7 @@
   },
   "scripts": {
     "build": "npm run build:typescript && npm run check:javascript",
-    "build:typescript": "tsc",
+    "build:typescript": "node scripts/clean.cjs && tsc",
     "check:javascript": "node scripts/check-javascript.cjs",
     "start": "npm run start:typescript",
     "start:javascript": "npm run check:javascript && node scripts/launch.cjs javascript",

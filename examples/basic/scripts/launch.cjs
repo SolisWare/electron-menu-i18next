@@ -26,8 +26,8 @@ const electronPath = require("electron");
 
 const variant = process.argv[2] ?? "typescript";
 const entryPoints = {
-  javascript: "src/javascript/main.js",
-  typescript: "dist/typescript/main.js",
+  javascript: "src/javascript/main.cjs",
+  typescript: "dist/typescript/main.mjs",
 };
 const entryPoint = entryPoints[variant];
 

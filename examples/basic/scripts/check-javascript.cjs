@@ -10,7 +10,7 @@ const { resolve } = require("node:path");
 
 const sourceDirectory = resolve("src/javascript");
 const sourceFiles = readdirSync(sourceDirectory)
-  .filter((fileName) => fileName.endsWith(".js"))
+  .filter((fileName) => fileName.endsWith(".cjs"))
   .sort();
 
 for (const sourceFile of sourceFiles) {
