@@ -9,7 +9,7 @@ See the LICENSE file in the project root directory for details.
 
 Localize Electron's role-based native menu labels with [i18next](https://www.i18next.com/), in the main process.
 
-Electron's `role`-based menu items (`role: 'undo'`, `'about'`, `'quit'`, etc.) render with hardcoded English labels by default, and there's no built-in way to hook them into an i18next instance running in the main process. This package fills that gap: give it a menu template and a `t` function, and it fills in `label` for every role-based item — falling back to correct English if a translation key is missing.
+Electron's `role`-based menu items (`role: 'undo'`, `'about'`, `'quit'`, etc.) render with hardcoded English labels by default, and there's no built-in way to hook them into an i18next instance running in the main process. This package fills that gap: give it a menu template and a `t` function, and it fills in `label` for every role-based item — falling back to English if a translation key is missing.
 
 ## Install
 
@@ -228,11 +228,6 @@ The API is the same in plain JavaScript:
 - For CommonJS, load the package with
   `require("@solisware/electron-menu-i18next")`.
 
-The repository includes complete, runnable
-[JavaScript and TypeScript examples](./examples/basic) with shared JSON locale
-files. Use those when you need full Electron startup, window creation, platform
-menus, or CommonJS/ESM reference code.
-
 ## Translation keys
 
 Add translated `menu.roles.*` keys directly to each application locale. You do
@@ -283,6 +278,14 @@ Looks up the localized label for a single role — useful for tray menus or cont
 
 The built-in English fallback map, exported in case you want to seed your own locale files from it.
 
+## Fully working Electron example
+
+The repository includes a complete, runnable
+[Electron example](./examples/basic) with equivalent JavaScript/CommonJS and
+TypeScript/ESM implementations. It demonstrates full application startup,
+window creation, platform-specific menus, shared JSON locale files, and
+switching languages at runtime.
+
 ## Why not just use Electron's OS-level localization?
 
 On macOS, some role labels are localized automatically by the OS. On Windows and Linux, none are — and even on macOS, `about`/`hide`/`quit` need the app name injected, which Electron doesn't do for you outside the default App menu. This package gives you one consistent behavior across all three platforms, driven by the same i18next instance as the rest of your app.
@@ -292,6 +295,12 @@ On macOS, some role labels are localized automatically by the OS. On Windows and
 Development setup, commands, test organization, and pull-request guidance are
 documented in [CONTRIBUTING.md](./CONTRIBUTING.md).
 
+## Security
+
+Security policy and vulnerability-reporting guidance are documented in
+[SECURITY.md](./SECURITY.md).
+
 ## License
 
-MIT © [SolisWare](https://github.com/SolisWare) and contributors
+MIT © [SolisWare](https://github.com/SolisWare) and contributors.
+See the [LICENSE](./LICENSE) file in the project root directory for details.
