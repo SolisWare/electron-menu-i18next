@@ -19,37 +19,6 @@ npm install @solisware/electron-menu-i18next
 
 `i18next` is a peer dependency — bring your own instance.
 
-### Install a GitHub Actions artifact
-
-Successful CI runs provide an installable prerelease artifact for manual
-testing before the package is published to npm:
-
-1. Open the repository's **Actions** page.
-2. Open a successful **SolisWare electron-menu-i18next CI** run.
-3. Download the `solisware-electron-menu-i18next-v<version>-b<build>` artifact.
-4. Extract the downloaded ZIP file.
-5. Install the `.tgz` file contained inside it:
-
-```bash
-npm install ./solisware-electron-menu-i18next-v0.1.0-b123.tgz
-```
-
-Replace `v0.1.0` and `b123` with the version and build number in the downloaded
-filename. The `.tgz` is a standard npm package, so it can also be referenced
-from another project's `package.json`:
-
-```json
-{
-  "dependencies": {
-    "@solisware/electron-menu-i18next": "file:../packages/solisware-electron-menu-i18next-v0.1.0-b123.tgz"
-  }
-}
-```
-
-The consuming project must also have a compatible version of `i18next`
-installed. Modern npm versions normally install peer dependencies
-automatically; it can also be installed explicitly with `npm install i18next`.
-
 ## Compatibility
 
 - Node.js 16 and newer
