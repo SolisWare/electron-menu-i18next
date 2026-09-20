@@ -259,7 +259,8 @@ npm run docs
 Open `docs/index.html` in a browser to browse the exported functions,
 interfaces, configuration properties, parameters, return types, and constants.
 The generated directory is intentionally not committed; CI rebuilds it to keep
-the public API documentation valid.
+the public API documentation valid and uploads the complete static site as a
+versioned workflow artifact.
 
 ## Fully working Electron example
 
