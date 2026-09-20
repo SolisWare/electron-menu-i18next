@@ -14,6 +14,7 @@
     "GitHub": "https://github.com/SolisWare/electron-menu-i18next",
     "npm": "https://www.npmjs.com/package/@solisware/electron-menu-i18next"
   },
+  "customFooterHtml": "Copyright &copy; 2026 <a href=\"https://solisware.com\">SolisWare</a> and contributors. Licensed under the <a href=\"https://github.com/SolisWare/electron-menu-i18next/blob/main/LICENSE\">MIT License</a>.",
   "validation": {
     "invalidLink": true,
     "notExported": true
