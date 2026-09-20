@@ -1,16 +1,19 @@
-/**
+/*
  * Copyright (c) 2026 SolisWare and contributors.
- * 
+ *
  * All rights reserved. Licensed under the MIT license.
  * See the LICENSE file in the project root directory for details.
+ */
+
+/**
+ * English fallbacks for Electron's role-based menu items.
  *
  * Electron's own default English labels for role-based menu items, so a
  * missing translation key degrades to correct English rather than a raw
  * role string like "toggleDevTools". Roles that embed the app name use
  * the {{appName}} interpolation token.
  *
- * Source of truth: Electron's MenuItem role docs.
- * https://www.electronjs.org/docs/latest/api/menu-item#roles
+ * The role list follows {@link https://www.electronjs.org/docs/latest/api/menu-item#roles | Electron's MenuItem role documentation}.
  */
 export const DEFAULT_ROLE_LABELS: Record<string, string> = {
   undo: "Undo",

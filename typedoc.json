@@ -1,0 +1,22 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": ["src/index.ts"],
+  "out": "docs",
+  "tsconfig": "tsconfig.json",
+  "name": "@solisware/electron-menu-i18next API",
+  "includeVersion": true,
+  "readme": "none",
+  "excludeInternal": true,
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "excludeExternals": true,
+  "navigationLinks": {
+    "GitHub": "https://github.com/SolisWare/electron-menu-i18next",
+    "npm": "https://www.npmjs.com/package/@solisware/electron-menu-i18next"
+  },
+  "validation": {
+    "invalidLink": true,
+    "notExported": true
+  },
+  "treatWarningsAsErrors": true
+}

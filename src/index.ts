@@ -1,8 +1,14 @@
-/**
+/*
  * Copyright (c) 2026 SolisWare and contributors.
- * 
+ *
  * All rights reserved. Licensed under the MIT license.
  * See the LICENSE file in the project root directory for details.
+ */
+
+/**
+ * Utilities for localizing Electron role-based native menu labels with i18next.
+ *
+ * @packageDocumentation
  */
 import { DEFAULT_ROLE_LABELS } from "./defaultLabels.js";
 import type { LocalizeMenuOptions, MenuTemplateItem } from "./types.js";
@@ -25,6 +31,11 @@ const GENERIC_APP_ROLE_LABELS: Record<string, string> = {
  * you can mix manually-labeled and role-based items freely.
  *
  * Does not mutate the input template — returns a new array/tree.
+ *
+ * @typeParam T - The application's menu-item type.
+ * @param template - The Electron-compatible menu template to localize.
+ * @param options - The translator, key prefix, and fallback configuration.
+ * @returns A localized copy of the complete menu tree.
  */
 export function localizeMenuTemplate<T extends MenuTemplateItem>(
   template: T[],
@@ -48,11 +59,18 @@ export function localizeMenuTemplate<T extends MenuTemplateItem>(
 /**
  * Looks up the localized label for a single role, without a full template.
  * Useful for tray menus, context menus, or one-off items built by hand.
+ *
+ * @param role - The Electron menu role, such as `copy` or `quit`.
+ * @param options - The translator, key prefix, and fallback configuration.
+ * @returns The translated label, its configured fallback, or the role itself.
  */
 export function getRoleLabel(role: string, options: LocalizeMenuOptions): string {
   return resolveLabel(role, options);
 }
 
+/**
+ * @internal
+ */
 function resolveLabel(role: string, options: LocalizeMenuOptions): string {
   const { t, keyPrefix = DEFAULT_KEY_PREFIX, appName, fallbackLabels } = options;
   const key = `${keyPrefix}.${role}`;

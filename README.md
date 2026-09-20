@@ -247,10 +247,24 @@ Looks up the localized label for a single role — useful for tray menus or cont
 
 The built-in English fallback map, exported in case you want to seed your own locale files from it.
 
+### Generated API reference
+
+To build browsable TypeDoc API documentation locally, use Node.js 20 or newer
+and run:
+
+```bash
+npm run docs
+```
+
+Open `docs/index.html` in a browser to browse the exported functions,
+interfaces, configuration properties, parameters, return types, and constants.
+The generated directory is intentionally not committed; CI rebuilds it to keep
+the public API documentation valid.
+
 ## Fully working Electron example
 
 The repository includes a complete, runnable
-[Electron example](./examples/basic) with equivalent JavaScript/CommonJS and
+[Electron example](./examples/basic/README.md) with equivalent JavaScript/CommonJS and
 TypeScript/ESM implementations. It demonstrates full application startup,
 window creation, platform-specific menus, shared JSON locale files, and
 switching languages at runtime.

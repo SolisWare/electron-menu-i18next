@@ -1,6 +1,6 @@
-/**
+/*
  * Copyright (c) 2026 SolisWare and contributors.
- * 
+ *
  * All rights reserved. Licensed under the MIT license.
  * See the LICENSE file in the project root directory for details.
  */
@@ -14,11 +14,15 @@ import type { TFunction } from "i18next";
  * MenuItemConstructorOptions, which satisfies this interface.
  */
 export interface MenuTemplateItem {
+  /** Electron's built-in behavior identifier, such as `copy` or `fileMenu`. */
   role?: string;
+  /** An explicit label. When present, it is preserved without translation. */
   label?: string;
+  /** A nested menu template, or another submenu value understood by Electron. */
   submenu?: MenuTemplateItem[] | unknown;
 }
 
+/** Configuration used to translate role-based menu labels. */
 export interface LocalizeMenuOptions {
   /** i18next `t` function (or `i18next.getFixedT(lng)`, or `useTranslation().t`). */
   t: TFunction;
@@ -34,8 +38,8 @@ export interface LocalizeMenuOptions {
    */
   appName?: string;
   /**
-   * Per-role English fallback overrides, merged over the built-in
-   * DEFAULT_ROLE_LABELS. Used when a translation key is missing.
+   * Per-role English fallback overrides, resolved before the built-in
+   * `DEFAULT_ROLE_LABELS`. Used when a translation key is missing.
    */
   fallbackLabels?: Partial<Record<string, string>>;
 }

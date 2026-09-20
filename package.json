@@ -40,6 +40,7 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "dev": "node scripts/build.mjs --watch",
+    "docs": "typedoc --options typedoc.json",
     "test": "npm run build && npm run test:compatibility && npm run test:functionality && npm run test:integration && npm run test:consumer:javascript && npm run test:consumer:typescript",
     "test:compatibility": "node test/framework/run-tests.mjs test/compatibility",
     "test:consumer:javascript": "node test/fixtures/run-javascript-consumers.mjs",
@@ -55,6 +56,7 @@
   },
   "devDependencies": {
     "i18next": "^24.0.0",
+    "typedoc": "^0.28.20",
     "typescript": "^5.5.0"
   },
   "engines": {
