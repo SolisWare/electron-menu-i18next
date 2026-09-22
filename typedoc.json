@@ -11,6 +11,7 @@
   "excludeProtected": true,
   "excludeExternals": true,
   "navigationLinks": {
+    "SolisWare": "https://solisware.com",
     "GitHub": "https://github.com/SolisWare/electron-menu-i18next",
     "npm": "https://www.npmjs.com/package/@solisware/electron-menu-i18next"
   },
