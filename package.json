@@ -1,14 +1,25 @@
 {
   "name": "@solisware/electron-menu-i18next",
   "version": "1.0.0",
-  "description": "Localize Electron's role-based native menu labels with i18next, in the main process.",
+  "description": "Translate Electron role-based native menu labels with i18next in the main process, with TypeScript types and English fallbacks.",
   "keywords": [
+    "desktop",
     "electron",
-    "i18next",
+    "electron-i18n",
+    "electron-localization",
+    "electron-menu",
     "i18n",
+    "i18next",
+    "internationalization",
     "localization",
+    "main-process",
     "menu",
-    "native-menu"
+    "menu-translation",
+    "menuitem",
+    "native-menu",
+    "role-based-menu",
+    "translation",
+    "typescript"
   ],
   "author": {
     "name": "SolisWare",
@@ -16,7 +27,7 @@
     "url": "https://solisware.com"
   },
   "license": "MIT",
-  "homepage": "https://github.com/SolisWare/electron-menu-i18next",
+  "homepage": "https://docs.solisware.com/electron-menu-i18next/",
   "bugs": {
     "url": "https://github.com/SolisWare/electron-menu-i18next/issues"
   },

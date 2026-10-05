@@ -7,17 +7,60 @@ See the LICENSE file in the project root directory for details.
 
 # @solisware/electron-menu-i18next
 
-Localize Electron's role-based native menu labels with [i18next](https://www.i18next.com/), in the main process.
+Localize Electron's role-based native menu labels with [i18next](https://www.i18next.com/) in the main process.
 
-Electron's `role`-based menu items (`role: 'undo'`, `'about'`, `'quit'`, etc.) render with hardcoded English labels by default, and there's no built-in way to hook them into an i18next instance running in the main process. This package fills that gap: give it a menu template and a `t` function, and it fills in `label` for every role-based item — falling back to English if a translation key is missing.
+Electron's role-based menu items such as `undo`, `about`, `quit`, and others render with hardcoded English labels by default, and there is no built-in way to hook them into an i18next instance running in the main process. This package fills that gap. Give it a menu template and a `t` function, and it fills in `label` for every role-based item while falling back to English if a translation key is missing.
 
 ## Install
 
 ```bash
-npm install @solisware/electron-menu-i18next
+npm install @solisware/electron-menu-i18next i18next
 ```
 
 `i18next` is a peer dependency — bring your own instance.
+
+## Quick start
+
+Given an initialized i18next instance and translation keys such as
+`menu.roles.undo`, localize the template before passing it to Electron:
+
+```ts
+import { app, Menu, type MenuItemConstructorOptions } from "electron";
+import i18next from "i18next";
+import { localizeMenuTemplate } from "@solisware/electron-menu-i18next";
+
+const template: MenuItemConstructorOptions[] = [
+  {
+    role: "editMenu",
+    submenu: [
+      { role: "undo" },
+      { role: "redo" },
+      { type: "separator" },
+      { role: "copy" },
+      { role: "paste" },
+    ],
+  },
+];
+
+const localizedTemplate = localizeMenuTemplate(template, {
+  t: i18next.t.bind(i18next),
+  appName: app.name,
+});
+
+Menu.setApplicationMenu(Menu.buildFromTemplate(localizedTemplate));
+```
+
+## Features
+
+- Translates Electron role labels through your existing i18next instance.
+- Runs in Electron's main process without importing Electron at runtime.
+- Covers every role currently listed in Electron's `MenuItem` documentation.
+- Preserves native role behavior, keyboard accelerators, and explicit labels.
+- Handles nested submenus without mutating the source menu template.
+- Supports custom translation prefixes and per-role fallback overrides.
+- Ships TypeScript declarations plus ESM and CommonJS builds.
+- Provides English fallbacks, including application-name interpolation for
+  About, Hide, and Quit.
 
 ## Compatibility
 
@@ -28,13 +71,7 @@ npm install @solisware/electron-menu-i18next
 Compatibility is tested in CI on every Node.js major release from version 16
 through the latest release.
 
-## Quick start
-
-Install the package next to Electron and i18next:
-
-```bash
-npm install @solisware/electron-menu-i18next i18next
-```
+## Complete Electron integration
 
 This example uses TypeScript and ECMAScript modules. Create these four files in
 your Electron main-process source directory:
@@ -273,6 +310,43 @@ switching languages at runtime.
 ## Why not just use Electron's OS-level localization?
 
 On macOS, some role labels are localized automatically by the OS. On Windows and Linux, none are — and even on macOS, `about`/`hide`/`quit` need the app name injected, which Electron doesn't do for you outside the default App menu. This package gives you one consistent behavior across all three platforms, driven by the same i18next instance as the rest of your app.
+
+## Frequently asked questions
+
+### How do I translate Electron menu roles with i18next?
+
+Initialize i18next in the main process, pass its `t` function and your Electron
+menu template to `localizeMenuTemplate`, then pass the returned template to
+`Menu.buildFromTemplate`. Translation keys default to `menu.roles.<role>`.
+
+### Does this replace Electron's native menu roles?
+
+No. Items retain their `role`, so Electron still provides the native command,
+platform integration, and accelerator. The package only supplies the visible
+`label` before Electron builds the menu.
+
+### Can it translate custom Electron menu items?
+
+Use i18next directly for custom items, such as
+`{ label: t("menu.export"), click: exportData }`. The helper preserves every
+explicit label and only fills in labels missing from role-based items.
+
+### Can it localize tray menus and context menus?
+
+Yes. Use `localizeMenuTemplate` for a complete nested template or
+`getRoleLabel` when constructing an individual tray or context-menu item.
+
+### How do I update the menu after changing language?
+
+Call `i18next.changeLanguage(...)`, localize the original template again, and
+rebuild the native menu. Electron menus do not automatically react to an
+i18next language change.
+
+### Does the package depend on Electron?
+
+No. It uses a structural `MenuTemplateItem` type, so Electron is not a runtime
+or peer dependency. Your Electron `MenuItemConstructorOptions[]` template is
+compatible with the helper.
 
 ## Contributing
 

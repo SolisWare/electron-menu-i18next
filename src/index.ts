@@ -6,7 +6,8 @@
  */
 
 /**
- * Utilities for localizing Electron role-based native menu labels with i18next.
+ * Translate Electron role-based native application menu labels with i18next
+ * in the main process while preserving native actions and accelerators.
  *
  * @packageDocumentation
  */
