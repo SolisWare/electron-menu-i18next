@@ -1,6 +1,6 @@
 {
   "name": "@solisware/electron-menu-i18next",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Translate Electron role-based native menu labels with i18next in the main process, with TypeScript types and English fallbacks.",
   "keywords": [
     "desktop",
