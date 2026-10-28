@@ -3,6 +3,8 @@
  *
  * All rights reserved. Licensed under the MIT license.
  * See the LICENSE file in the project root directory for details.
+ *
+ * @author Michael Polowczuk
  */
 const minimumNodeVersion = [22, 12, 0];
 const currentNodeVersion = process.versions.node.split(".").map(Number);

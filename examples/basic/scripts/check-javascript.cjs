@@ -3,6 +3,8 @@
  *
  * All rights reserved. Licensed under the MIT license.
  * See the LICENSE file in the project root directory for details.
+ *
+ * @author Michael Polowczuk
  */
 const { readdirSync } = require("node:fs");
 const { spawnSync } = require("node:child_process");

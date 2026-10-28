@@ -3,6 +3,8 @@
  *
  * All rights reserved. Licensed under the MIT license.
  * See the LICENSE file in the project root directory for details.
+ *
+ * @author Michael Polowczuk
  */
 const { app, BrowserWindow } = require("electron");
 const { initializeI18n } = require("./i18n.cjs");
