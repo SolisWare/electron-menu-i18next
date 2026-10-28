@@ -8,7 +8,7 @@
     "module": "CommonJS",
     "moduleResolution": "Node",
     "outDir": "dist/cjs",
-    "declaration": false,
+    "declaration": true,
     "sourceMap": true,
     "noEmit": false
   }
