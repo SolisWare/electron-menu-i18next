@@ -3,8 +3,6 @@
  *
  * All rights reserved. Licensed under the MIT license.
  * See the LICENSE file in the project root directory for details.
- *
- * @author Michael Polowczuk
  */
 import assert from "node:assert/strict";
 
@@ -63,4 +61,18 @@ test("preserves a non-array submenu", () => {
   });
 
   assert.equal(localizedTemplate[0].submenu, submenu);
+});
+
+test("preserves explicit template labels when given a menu builder", () => {
+  const builtMenu = {
+    items: [{ role: "copy", label: "Duplicate" }],
+  };
+
+  const menu = localizeMenuTemplate(
+    [{ role: "copy", label: "Duplicate" }],
+    { t: createTranslator({ "menu.roles.copy": "Kopiuj" }) },
+    () => builtMenu,
+  );
+
+  assert.equal(menu.items[0].label, "Duplicate");
 });

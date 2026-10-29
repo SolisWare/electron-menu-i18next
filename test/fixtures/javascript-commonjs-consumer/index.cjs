@@ -3,8 +3,6 @@
  *
  * All rights reserved. Licensed under the MIT license.
  * See the LICENSE file in the project root directory for details.
- *
- * @author Michael Polowczuk
  */
 const assert = require("node:assert/strict");
 
@@ -31,3 +29,22 @@ assert.equal(localizedTemplate[0].submenu[0].label, "Kopiuj");
 assert.equal(localizedTemplate[0].submenu[1].label, "Paste");
 assert.equal(getRoleLabel("undo", { t }), "Undo");
 assert.equal(DEFAULT_ROLE_LABELS.copy, "Copy");
+
+const builtMenu = {
+  items: [
+    {
+      role: "windowMenu",
+      label: "Window",
+      submenu: {
+        items: [{ role: "close", label: "Close" }],
+      },
+    },
+  ],
+};
+const localizedMenu = localizeMenuTemplate(
+  [{ role: "windowMenu" }],
+  { t: (key, options) => key === "menu.roles.close" ? "Cerrar" : options.defaultValue },
+  () => builtMenu,
+);
+
+assert.equal(localizedMenu.items[0].submenu.items[0].label, "Cerrar");

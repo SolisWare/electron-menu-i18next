@@ -50,13 +50,30 @@ const localizedTemplate = localizeMenuTemplate(template, {
 Menu.setApplicationMenu(Menu.buildFromTemplate(localizedTemplate));
 ```
 
+### Implicit role submenus
+
+Some parent roles, such as `windowMenu`, cause Electron to generate submenu
+items only after the template is built. Pass `Menu.buildFromTemplate` as the
+optional third argument to localize those generated children recursively while
+preserving explicit labels from your original template:
+
+```ts
+const menu = localizeMenuTemplate(
+  [{ role: "windowMenu" }],
+  { t: i18next.t.bind(i18next), appName: app.name },
+  Menu.buildFromTemplate,
+);
+
+Menu.setApplicationMenu(menu);
+```
+
 ## Features
 
 - Translates Electron role labels through your existing i18next instance.
 - Runs in Electron's main process without importing Electron at runtime.
 - Covers every role currently listed in Electron's `MenuItem` documentation.
 - Preserves native role behavior, keyboard accelerators, and explicit labels.
-- Handles nested submenus without mutating the source menu template.
+- Handles explicit and Electron-generated nested submenus without mutating the source menu template.
 - Supports custom translation prefixes and per-role fallback overrides.
 - Ships TypeScript declarations plus ESM and CommonJS builds.
 - Provides English fallbacks, including application-name interpolation for
@@ -263,9 +280,11 @@ const toolsLabel = t("menu.tools");
 
 ## API
 
-### `localizeMenuTemplate(template, options)`
+### `localizeMenuTemplate(template, options, buildMenu?)`
 
-Recursively walks a `MenuItemConstructorOptions[]` tree (including nested `submenu` arrays) and sets `label` for any item that has a `role` but no `label`. Items with an explicit `label` are left untouched, including `label: ""`; localization and fallback labels apply only when `label` is missing or `undefined`. Returns a localized copy; the original template remains unchanged.
+Recursively walks a `MenuItemConstructorOptions[]` tree (including nested `submenu` arrays) and sets `label` for any item that has a `role` but no `label`. Items with an explicit `label` are left untouched, including `label: ""`; localization and fallback labels apply only when `label` is missing or `undefined`. With two arguments, it returns a localized copy and preserves the original template unchanged.
+
+Pass `Menu.buildFromTemplate` as the optional third argument to return a built native menu instead. The package then recursively localizes any role items Electron generated implicitly, including nested descendants, while preserving explicit labels from the original template.
 
 ### `getRoleLabel(role, options)`
 

@@ -3,8 +3,6 @@
  *
  * All rights reserved. Licensed under the MIT license.
  * See the LICENSE file in the project root directory for details.
- *
- * @author Michael Polowczuk
  */
 import assert from "node:assert/strict";
 
@@ -49,4 +47,44 @@ test("localizes sibling items independently", () => {
     localizedTemplate.map((item) => item.label),
     ["Kopiuj", "Wklej"],
   );
+});
+
+test("localizes recursively generated submenu roles when given a menu builder", () => {
+  const builtMenu = {
+    items: [
+      {
+        role: "windowMenu",
+        label: "Window",
+        submenu: {
+          items: [
+            {
+              role: "close",
+              label: "Close",
+              submenu: {
+                items: [{ role: "copy", label: "Copy" }],
+              },
+            },
+          ],
+        },
+      },
+    ],
+  };
+  const t = createTranslator({
+    "menu.roles.close": "Cerrar",
+    "menu.roles.copy": "Copiar",
+    "menu.roles.windowMenu": "Ventana",
+  });
+
+  const menu = localizeMenuTemplate(
+    [{ role: "windowMenu" }],
+    { t },
+    (template) => {
+      assert.equal(template[0].label, "Ventana");
+      return builtMenu;
+    },
+  );
+
+  assert.equal(menu, builtMenu);
+  assert.equal(menu.items[0].submenu.items[0].label, "Cerrar");
+  assert.equal(menu.items[0].submenu.items[0].submenu.items[0].label, "Copiar");
 });

@@ -3,8 +3,6 @@
  *
  * All rights reserved. Licensed under the MIT license.
  * See the LICENSE file in the project root directory for details.
- *
- * @author Michael Polowczuk
  */
 import i18next, { type TFunction } from "i18next";
 
@@ -21,6 +19,16 @@ interface ConsumerMenuItem extends MenuTemplateItem {
   enabled?: boolean;
   click?: () => void;
   submenu?: ConsumerMenuItem[];
+}
+
+interface ConsumerBuiltMenuItem {
+  label?: string;
+  role?: string;
+  submenu?: ConsumerBuiltMenu;
+}
+
+interface ConsumerBuiltMenu {
+  items: ConsumerBuiltMenuItem[];
 }
 
 const t: TFunction = i18next.getFixedT("en");
@@ -45,9 +53,15 @@ const localizedTemplate: ConsumerMenuItem[] = localizeMenuTemplate(
   menuTemplate,
   options,
 );
+const localizedBuiltMenu: ConsumerBuiltMenu = localizeMenuTemplate(
+  menuTemplate,
+  options,
+  () => ({ items: [{ role: "copy", label: "Copy" }] }),
+);
 const copyLabel: string = getRoleLabel("copy", options);
 const fallbackLabels: Record<string, string> = DEFAULT_ROLE_LABELS;
 
 void localizedTemplate;
+void localizedBuiltMenu;
 void copyLabel;
 void fallbackLabels;
