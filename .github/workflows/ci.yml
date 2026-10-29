@@ -62,6 +62,8 @@ jobs:
       - run: npm audit --audit-level=high
       - run: npm ci --ignore-scripts --prefix examples/basic
       - run: npm audit --audit-level=high --prefix examples/basic
+      - run: npm ci --ignore-scripts --prefix examples/generated-submenus
+      - run: npm audit --audit-level=high --prefix examples/generated-submenus
 
   integration:
     name: Integration tests
@@ -194,15 +196,24 @@ jobs:
           mv "artifacts/${packed_filename}" "artifacts/${artifact_name}.tgz"
           echo "name=${artifact_name}" >> "$GITHUB_OUTPUT"
           echo "path=artifacts/${artifact_name}.tgz" >> "$GITHUB_OUTPUT"
-      - name: Install example dependencies
+      - name: Install basic example dependencies
         run: npm ci --ignore-scripts --prefix examples/basic
-      - name: Install generated package in example
+      - name: Install generated package in basic example
         run: |
           package_path="$GITHUB_WORKSPACE/${{ steps.artifact.outputs.path }}"
           npm pkg set "dependencies.@solisware/electron-menu-i18next=file:${package_path}" --prefix examples/basic
           npm install --ignore-scripts --package-lock=false --prefix examples/basic
-      - name: Build JavaScript and TypeScript examples
+      - name: Build basic JavaScript and TypeScript examples
         run: npm run build --prefix examples/basic
+      - name: Install generated-submenus example dependencies
+        run: npm ci --ignore-scripts --prefix examples/generated-submenus
+      - name: Install generated package in generated-submenus example
+        run: |
+          package_path="$GITHUB_WORKSPACE/${{ steps.artifact.outputs.path }}"
+          npm pkg set "dependencies.@solisware/electron-menu-i18next=file:${package_path}" --prefix examples/generated-submenus
+          npm install --ignore-scripts --package-lock=false --prefix examples/generated-submenus
+      - name: Build generated-submenus TypeScript example
+        run: npm run build --prefix examples/generated-submenus
       - name: Upload npm package
         uses: actions/upload-artifact@v4
         with:

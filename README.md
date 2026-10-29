@@ -318,13 +318,17 @@ The generated directory is intentionally not committed; CI rebuilds it to keep
 the public API documentation valid and uploads the complete static site as a
 versioned workflow artifact.
 
-## Fully working Electron example
+## Fully working Electron examples
 
-The repository includes a complete, runnable
-[Electron example](./examples/basic/README.md) with equivalent JavaScript/CommonJS and
-TypeScript/ESM implementations. It demonstrates full application startup,
-window creation, platform-specific menus, shared JSON locale files, and
-switching languages at runtime.
+The repository includes two runnable examples with one integration pattern per
+example:
+
+- [Basic template localization](./examples/basic/README.md) demonstrates the
+  two-argument overload with equivalent JavaScript/CommonJS and TypeScript/ESM
+  implementations.
+- [Electron-generated submenus](./examples/generated-submenus/README.md)
+  demonstrates the three-argument builder overload in a focused TypeScript
+  application.
 
 ## Why not just use Electron's OS-level localization?
 

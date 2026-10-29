@@ -1,0 +1,18 @@
+{
+  "menu": {
+    "roles": {
+      "appMenu": "{{appName}}",
+      "about": "O aplikacji {{appName}}",
+      "services": "Usługi",
+      "hide": "Ukryj {{appName}}",
+      "hideOthers": "Ukryj pozostałe",
+      "unhide": "Pokaż wszystkie",
+      "quit": "Zakończ {{appName}}",
+      "windowMenu": "Okno",
+      "minimize": "Minimalizuj",
+      "zoom": "Powiększ okno",
+      "front": "Przenieś wszystkie na wierzch",
+      "close": "Zamknij"
+    }
+  }
+}

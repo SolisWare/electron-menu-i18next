@@ -79,7 +79,9 @@ and update the role-coverage test.
 
 ## Electron examples
 
-The basic example includes equivalent JavaScript and TypeScript variants.
+The basic example includes equivalent JavaScript and TypeScript variants for
+the two-argument overload. The generated-submenus example is a focused
+TypeScript demonstration of the three-argument builder overload.
 
 The example uses Electron 43, so installing and running it requires Node.js
 22.12 or newer even though the library itself supports Node.js 16 and newer.
@@ -90,10 +92,16 @@ npm ci
 npm run build
 npm run start:javascript
 npm run start:typescript
+
+cd ../generated-submenus
+npm ci
+npm run build
+npm start
 ```
 
 Keep both variants behaviorally equivalent when changing example code. The
-build compiles TypeScript and syntax-checks JavaScript.
+basic build compiles TypeScript and syntax-checks JavaScript. Keep both example
+projects independently runnable and update both when shared setup changes.
 
 ## Code and documentation
 

@@ -1,0 +1,20 @@
+{
+  "name": "electron-menu-i18next-generated-submenus-example",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "build": "node scripts/clean.cjs && tsc",
+    "start": "npm run build && node scripts/launch.cjs"
+  },
+  "dependencies": {
+    "@solisware/electron-menu-i18next": "file:../..",
+    "i18next": "^24.0.0"
+  },
+  "devDependencies": {
+    "electron": "^43.4.0",
+    "typescript": "^5.5.0"
+  }
+}

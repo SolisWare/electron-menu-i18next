@@ -23,8 +23,8 @@ async function startApplication(): Promise<void> {
   // translator into electron-menu-i18next during menu construction.
   await initializeI18n(language);
 
-  // Package integration happens inside installApplicationMenu(): the helper
-  // localizes the template before Electron builds the native menu instances.
+  // The package integration happens inside installApplicationMenu(): the
+  // helper localizes the template before Electron builds the native menu.
   installApplicationMenu();
 
   // Keep application ownership of the window in a module-level reference.

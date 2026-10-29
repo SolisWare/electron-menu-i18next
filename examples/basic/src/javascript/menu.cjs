@@ -91,13 +91,6 @@ function installApplicationMenu() {
       ],
     },
     {
-      // This top-level menu is fully standard, so Electron can generate it.
-      // No custom `label` or `submenu` is needed: the helper translates
-      // `menu.roles.windowMenu`, and Electron supplies the complete Window
-      // submenu and its native behavior.
-      role: "windowMenu",
-    },
-    {
       // Changing i18next's language does not mutate an existing native menu.
       // Each radio item changes the main-process language and rebuilds it.
       label: translate("menu.language"),
@@ -132,8 +125,8 @@ function installApplicationMenu() {
     },
   ];
 
-  // electron-menu-i18next belongs at this boundary: after the template is
-  // defined, but before Electron turns it into native MenuItem instances.
+  // This example uses the two-argument overload because every submenu item is
+  // explicitly present in the template. The helper returns a localized copy.
   const localizedTemplate = localizeMenuTemplate(template, {
     t: translate,
 
